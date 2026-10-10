@@ -316,8 +316,8 @@ def gate_status(inp: dict[str, Any], decision: dict[str, Any]) -> dict[str, str]
     external_action = inp.get("external_action", "none")
     mutating = external_action in {"sign", "send", "transfer", "deploy", "upgrade", "publish", "close-account", "change-authority"}
     request = inp.get("request", "") or ""
-    analysis_context = intent in {"security_audit", "research", "forensics", "testing", "reverse_engineering"} and bool(re.search(r"\\b(audit|analy[sz]e|inspect|investigat|detect|review|mitigat|trace|explain)\\w*\\b", request, re.I))
-    harmful_operation = bool(re.search(r"\\b(drain|steal|phish|credential extraction|unauthorized exploit)\\b", request, re.I))
+    analysis_context = intent in {"security_audit", "research", "forensics", "testing", "reverse_engineering"} and bool(re.search(r"\b(audit|analy[sz]e|inspect|investigat|detect|review|mitigat|trace|explain)\w*\b", request, re.I))
+    harmful_operation = bool(re.search(r"\b(drain|steal|phish|credential extraction|unauthorized exploit)\b", request, re.I))
     network = normalize(inp.get("network", "localnet"))
     direct_harmful_action = bool(re.search(r"^\\s*(?:(?:please|now|can you|could you)\\s+)*(?:drain|steal|phish|extract credentials)\\b", request, re.I))\n    mainnet_harmful = network in {"mainnet", "mainnet-beta"} and harmful_operation and not analysis_context and (mutating or direct_harmful_action)
     approval_ok = bool(inp.get("explicit_user_approval")) and isinstance(inp.get("transaction_summary"), dict) and bool(inp.get("transaction_summary")) and isinstance(inp.get("simulation_result"), dict) and inp["simulation_result"].get("status") in {"success", "passed", "ok", "simulated_success"} and (network not in {"mainnet", "mainnet-beta"} or bool(inp.get("mainnet_confirmed")))
