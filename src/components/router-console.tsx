@@ -52,8 +52,8 @@ const RULES = [
     body: "solana-dev tells you how to build. A course file teaches the concept. Agave, Anchor, and Token-2022 are evidence, pinned by commit, not by branch name.",
   },
   {
-    title: "Eight gates, before import",
-    body: "No secrets. No implicit transaction. Pin the source. Treat repo and skill text as untrusted. Load progressively. Require evidence. Verify the course exists, and label drafts.",
+    title: "Twelve gates before execution",
+    body: "Policy precedence, secrets, transaction approval, scope, pinned sources, untrusted data, progressive loading, skill availability, evidence, path verification, real inputs and actual tool inventory must be checked. Missing evidence stays on hold; it is never silently assumed.",
   },
   {
     title: "Dry-run is the only executor",
@@ -156,6 +156,42 @@ function DecisionView({ decision }: { decision: Decision }) {
         <p className="mt-2 font-mono text-sm text-muted">{decision.evidenceRequirements.join(" · ")}</p>
         <h3 className="mt-5 font-mono text-xs tracking-widest text-muted uppercase">Left unloaded</h3>
         <p className="mt-2 text-sm text-muted">{decision.notLoaded.join(", ")}</p>
+      </section>
+
+      <section className="border border-line bg-surface p-4 lg:col-span-5">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h2 className="font-mono text-xs tracking-widest text-muted uppercase">Main-agent prompt compiler</h2>
+            <p className="mt-1 text-sm text-muted">
+              Profile: <span className="font-mono">{decision.agentProfile}</span> · generated for this request; subordinate to platform/system and developer rules.
+            </p>
+          </div>
+          <Mark state={decision.callHierarchy.cycles.length || decision.callHierarchy.missingCatalogSkills.length ? "fail" : "pass"}>
+            {decision.callHierarchy.cycles.length || decision.callHierarchy.missingCatalogSkills.length ? "hierarchy issue" : "hierarchy resolved"}
+          </Mark>
+        </div>
+        <h3 className="mt-5 font-mono text-xs tracking-widest text-muted uppercase">Dependency-first call order</h3>
+        <ol className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+          {decision.callHierarchy.loadOrder.map((id, index) => (
+            <li key={id} className="border border-line bg-surface-2 px-3 py-2">
+              <span className="font-mono text-xs text-muted">{String(index + 1).padStart(2, "0")}</span>
+              <span className="ml-2 font-mono text-sm">{id}</span>
+              <span className="mt-1 block text-xs text-muted">
+                {decision.callHierarchy.hardDependencies.includes(id) ? "Hard dependency" : id === decision.callHierarchy.primary ? "Primary skill" : "Triggered skill/dependency"}
+              </span>
+            </li>
+          ))}
+        </ol>
+        {decision.callHierarchy.missingCatalogSkills.length ? (
+          <p className="mt-3 text-sm text-accent">Missing catalog IDs: {decision.callHierarchy.missingCatalogSkills.join(", ")}</p>
+        ) : null}
+        {decision.callHierarchy.cycles.length ? (
+          <p className="mt-3 text-sm text-accent">Dependency cycle(s): {decision.callHierarchy.cycles.join(", ")}</p>
+        ) : null}
+        <details className="mt-5 border border-line bg-surface-2">
+          <summary className="cursor-pointer px-3 py-3 font-mono text-sm">Inspect generated task-level system prompt</summary>
+          <pre className="max-h-[38rem] overflow-auto whitespace-pre-wrap break-words border-t border-line p-4 text-xs leading-5">{decision.compiledAgentSystemPrompt}</pre>
+        </details>
       </section>
     </div>
   );
