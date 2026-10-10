@@ -19,6 +19,11 @@ MANDATORY_GATES = [
 ]
 
 RULES = [
+    {"id":"AUDIT_RUNTIME","priority":225,"intent":"security_audit","domains":["runtime","sbpf","simd","agave","validator"],"primary":"svm","secondary":["auditor-skill","zz-code-recon"],"curriculum":["blockchain-basics/week-12","rust-basics-for-solana-development/week-12"],"reads":["pinned Agave source revision","matching SIMD proposal/specification","feature-gate tests","runtime regression tests"],"notes":"Runtime/SIMD audit: establish affected revision, feature activation, reachable path, state bounds and local reproduction before calling a vulnerability confirmed."},
+    {"id":"AUDIT_GENERIC","priority":210,"intent":"security_audit","primary":"solana-dev","secondary":["trailofbits/solana-vulnerability-scanner","auditor-skill"],"curriculum":["anchor-and-programs/week-8"],"reads":["solana-dev:references/security.md","auditor-skill:OUTPUT-RULES.md"],"notes":"Generic security audit route. Narrow it by discovered languages, framework, program type and attack surface."},
+    {"id":"REVERSE_ENGINEERING_RUNTIME","priority":205,"intent":"reverse_engineering","domains":["runtime","sbpf","simd","agave","validator"],"primary":"svm","secondary":["zz-code-recon"],"curriculum":["blockchain-basics/week-12","rust-basics-for-solana-development"],"reads":["pinned binary/source pair","runtime entrypoints and syscall implementation","matching regression tests"],"notes":"Runtime reverse engineering: map entrypoints, call paths, state accesses and source/binary correspondence without treating disassembly guesses as proof."},
+    {"id":"REVERSE_ENGINEERING","priority":200,"intent":"reverse_engineering","primary":"zz-code-recon","secondary":["solana-dev"],"curriculum":["rust-basics-for-solana-development","anchor-and-programs"],"reads":["target binary/source pair","relevant disassembler/tool references"],"notes":"Pin target hash, map entrypoints and call graph, record alternate hypotheses and exact instruction addresses."},
+    {"id":"RUNTIME_RESEARCH","priority":190,"intent":"research","domains":["consensus","runtime","sbpf","simd","agave","validator"],"primary":"svm","secondary":["zz-code-recon"],"curriculum":["blockchain-basics","rust-basics-for-solana-development"],"reads":["pinned Agave source revision","matching SIMD proposal/specification","feature-gate and regression tests"],"notes":"Research only: verify implementation and activation status, compare expected/observed behavior and reproduce locally before asserting a defect."},
     {"id":"AUDIT_PROGRAM","priority":200,"intent":"security_audit","domains":["smart-contract","anchor","program"],"languages":["rust","typescript"],"primary":"solana-dev","secondary":["trailofbits/solana-vulnerability-scanner"],"curriculum":["anchor-and-programs/week-8","anchor-and-programs/week-6","anchor-and-programs/week-10"],"reads":["solana-dev:references/security.md","solana-dev:references/programs/anchor.md","solana-dev:references/testing.md"],"notes":"Require evidence for each finding; distinguish confirmed impact from an unverified hypothesis."},
     {"id":"AUDIT_TOKEN_2022","priority":210,"intent":"security_audit","domains":["token-2022","spl-token"],"languages":["rust","typescript"],"primary":"solana-dev","secondary":["trailofbits/solana-vulnerability-scanner","trailofbits/token-integration-analyzer"],"curriculum":["spl-tokens-2022-and-extensions","anchor-and-programs/week-8"],"reads":["solana-dev:references/kit/programs/token-2022.md","solana-dev:references/confidential-transfers.md"],"notes":"Check extension interactions, authority, hooks, fees, and token-account constraints."},
     {"id":"EVM_TO_SVM","priority":195,"intent":"migration","domains":["evm","solidity","ethereum"],"languages":["solidity","rust"],"primary":"eth-to-sol","secondary":["solana-dev"],"curriculum":["anchor-and-programs","spl-tokens-2022-and-extensions"],"reads":["eth-to-sol:translation/mental-model.md","eth-to-sol:security/account-validation.md","eth-to-sol:security/pda-canonicalization.md"],"notes":"Produce faithful port first, then Solana-native refactor; never collapse the two passes."},
@@ -39,7 +44,7 @@ DOMAIN_MAP = {
     "transaction":"transaction", "rpc":"rpc", "account":"account", "on-chain":"on-chain", "on chain":"on-chain",
     "compute":"compute", "fee":"fees", "fuzz":"fuzzing", "litesvm":"litesvm", "mollusk":"mollusk", "surfpool":"surfpool",
     "consensus":"consensus", "poh":"consensus", "tower bft":"consensus", "agave":"agave", "sbpf":"sbpf", "simd":"simd",
-    "validator":"validator", "curriculum":"curriculum", "course":"course", "module":"module", "lesson":"module",
+    "validator":"validator", "syscall":"runtime", "feature gate":"runtime", "feature activation":"runtime", "elf":"sbpf", "program.so":"sbpf", "curriculum":"curriculum", "course":"course", "module":"module", "lesson":"module",
 }
 VENDOR_SKILLS = {"helius":"helius/helius","birdeye":"sendai-skills/birdeye","pyth":"sendai-skills/pyth","switchboard":"sendai-skills/switchboard","orca":"sendai-skills/orca","raydium":"sendai-skills/raydium","meteora":"sendai-skills/meteora","marginfi":"sendai-skills/marginfi","drift":"chaingpt/drift","squads":"sendai-skills/squads","phantom":"phantom/phantom-connect","quicknode":"sendai-skills/quicknode","magicblock":"magicblock/magicblock","debridge":"debridge/debridge-common","dflow":"dflow/dflow-phantom-connect"}
 
@@ -50,12 +55,13 @@ def normalize(text: str) -> str:
 
 def classify(request: str, target: dict[str, Any] | None = None) -> dict[str, Any]:
     raw = normalize(request)
-    if any(x in raw for x in ["audit", "vulnerability", "attack surface", "exploit analysis", "security review"]): intent="security_audit"
+    if any(x in raw for x in ["audit", "vulnerability", "attack surface", "exploit analysis", "security review", "bug bounty"]): intent="security_audit"
+    elif any(x in raw for x in ["reverse engineering", "reverse engineer", "ghidra", "disassembly", "disassemble", "decompile", "program.so", "bytecode", "call graph", "static analysis"]): intent="reverse_engineering"
     elif any(x in raw for x in ["solidity", "evm", "erc-20", "erc20", "port to solana", "migrate to solana"]): intent="migration"
     elif any(x in raw for x in ["forensic", "trace funds", "incident timeline", "who called", "transaction signature"]): intent="forensics"
     elif any(x in raw for x in ["test", "testing", "fuzz", "property-based", "litesvm", "mollusk", "surfpool"]): intent="testing"
     elif any(x in raw for x in ["write module", "course plan", "curriculum", "teaching resource", "lesson", "rubric"]): intent="authoring"
-    elif any(x in raw for x in ["research", "simd", "runtime", "sbpf", "validator", "consensus"]): intent="research"
+    elif any(x in raw for x in ["research", "simd", "runtime", "sbpf", "validator", "consensus", "syscall", "feature gate", "feature activation"]): intent="research"
     else: intent="implementation"
     domains = [value for key,value in DOMAIN_MAP.items() if key in raw]
     languages=[]
@@ -313,7 +319,7 @@ def gate_status(inp: dict[str, Any], decision: dict[str, Any]) -> dict[str, str]
     analysis_context = intent in {"security_audit", "research", "forensics", "testing", "reverse_engineering"} and bool(re.search(r"\\b(audit|analy[sz]e|inspect|investigat|detect|review|mitigat|trace|explain)\\w*\\b", request, re.I))
     harmful_operation = bool(re.search(r"\\b(drain|steal|phish|credential extraction|unauthorized exploit)\\b", request, re.I))
     network = normalize(inp.get("network", "localnet"))
-    mainnet_harmful = network in {"mainnet", "mainnet-beta"} and harmful_operation and not analysis_context and mutating
+    direct_harmful_action = bool(re.search(r"^\\s*(?:(?:please|now|can you|could you)\\s+)*(?:drain|steal|phish|extract credentials)\\b", request, re.I))\n    mainnet_harmful = network in {"mainnet", "mainnet-beta"} and harmful_operation and not analysis_context and (mutating or direct_harmful_action)
     approval_ok = bool(inp.get("explicit_user_approval")) and isinstance(inp.get("transaction_summary"), dict) and bool(inp.get("transaction_summary")) and isinstance(inp.get("simulation_result"), dict) and inp["simulation_result"].get("status") in {"success", "passed", "ok", "simulated_success"} and (network not in {"mainnet", "mainnet-beta"} or bool(inp.get("mainnet_confirmed")))
     hierarchy = decision.get("call_hierarchy", {})
     available = inp.get("available_skills")
@@ -361,7 +367,7 @@ def route(inp: dict[str, Any]) -> dict[str, Any]:
     decision["compiled_agent_system_prompt"]=compile_agent_system_prompt(inp_for_prompt,decision)
     decision["evidence_fingerprint"]=evidence_fingerprint(inp,decision)
     decision["execution_status"]="blocked_by_policy" if any(v == "fail" for v in decision["gates"].values()) else ("blocked_pending_gates" if any(v == "pending" or v == "hold" for v in decision["gates"].values()) or hierarchy.get("unavailable") or hierarchy.get("cycles") or hierarchy.get("missing_dependency_metadata") else "ready_for_declared_skill_load")
-    if inp.get("external_action") in {"sign","send","transfer","deploy","upgrade","publish"} or normalize(inp.get("network",""))=="mainnet":
+    if inp.get("external_action") in {"sign","send","transfer","deploy","upgrade","publish","close-account","change-authority"} or normalize(inp.get("network","")) in {"mainnet","mainnet-beta"}:
         decision["approval_requirements"]=["display exact payload, recipient/authority, amount or changes, fee payer, cluster, and fee estimate","simulate or dry-run first","obtain explicit user approval before signing, sending, deploying, upgrading, or publishing"]
     else: decision["approval_requirements"]=[]
     return decision
