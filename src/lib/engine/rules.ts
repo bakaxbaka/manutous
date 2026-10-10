@@ -4,6 +4,35 @@ const UNPINNED = null;
 
 export const RULES: Rule[] = [
   {
+    id: "SECURITY_AUDIT_RUNTIME",
+    priority: 230,
+    intents: ["security_audit"],
+    domains: ["runtime", "simd"],
+    primary: "auditor-skill",
+    secondary: ["svm", "zz-code-recon"],
+    curriculum: ["blockchain-basics", "rust-basics-for-solana-development"],
+    evidence: [
+      { repo: "https://github.com/anza-xyz/agave", role: "runtime implementation", commit: UNPINNED },
+      { repo: "https://github.com/solana-foundation/solana-improvement-documents", role: "proposal/specification", commit: UNPINNED },
+    ],
+    evidenceRequirements: ["source_location", "feature_status", "reachability", "state_bounds", "local_reproducer", "impact", "unknowns"],
+    note: "Runtime security route: pin Agave/SIMD, verify feature activation and expected-versus-actual behavior; a failed test is not by itself a vulnerability.",
+  },
+  {
+    id: "SECURITY_AUDIT_TOKEN_2022",
+    priority: 220,
+    intents: ["security_audit"],
+    domains: ["token-2022", "spl-token"],
+    primary: "solana-vulnerability-scanner",
+    secondary: ["zz-code-recon", "token-integration-analyzer"],
+    curriculum: ["spl-tokens-2022-and-extensions", "anchor-and-programs"],
+    evidence: [
+      { repo: "https://github.com/solana-program/token-2022", role: "token implementation", commit: UNPINNED },
+    ],
+    evidenceRequirements: ["token_program_id", "extension_inventory", "source_location", "authority_checks", "reachability", "state_bounds", "tests", "unknowns"],
+    note: "Token security route: distinguish classic SPL Token from Token-2022 and inspect extension interactions, authority, hooks, and token-account constraints.",
+  },
+  {
     id: "SECURITY_AUDIT",
     priority: 200,
     intents: ["security_audit"],
@@ -43,9 +72,9 @@ export const RULES: Rule[] = [
   },
   {
     id: "RUNTIME_RESEARCH",
-    priority: 180,
+    priority: 210,
     intents: ["runtime_research", "reverse_engineering"],
-    domains: ["runtime", "simd"],
+    domains: ["runtime", "simd", "consensus"],
     excludeDomains: ["consensus"],
     primary: "svm",
     secondary: ["zz-code-recon"],
@@ -67,6 +96,17 @@ export const RULES: Rule[] = [
       "unknowns",
     ],
     note: "Local validator or unit tests only. A crash is not a vulnerability.",
+  },
+  {
+    id: "REVERSE_ENGINEERING",
+    priority: 195,
+    intents: ["reverse_engineering"],
+    primary: "zz-code-recon",
+    secondary: ["solana-dev"],
+    curriculum: ["rust-basics-for-solana-development", "anchor-and-programs"],
+    evidence: [],
+    evidenceRequirements: ["target_hash_or_revision", "entrypoints", "call_paths", "state_mapping", "alternatives", "unknowns"],
+    note: "Reverse-engineering route: pin the target, map entrypoints/call paths/state accesses and preserve competing hypotheses.",
   },
   {
     id: "FORENSICS",
