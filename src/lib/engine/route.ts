@@ -1,4 +1,4 @@
-import { CURRICULUM, SKILLS, getSkill } from "./catalog.ts";
+import { CURRICULUM, MANDATORY_GATES, SKILLS, getSkill } from "./catalog.ts";
 import { classify } from "./classify.ts";
 import { evaluateGates, worst } from "./gates.ts";
 import { RULES } from "./rules.ts";
@@ -29,8 +29,36 @@ function curriculumFor(ids: string[], domains: string[]): CurriculumRef[] {
   });
 }
 
+function targetKindOf(request: string): string {
+  if (/https?:\/\/github\.com\/[\w.-]+\/[\w.-]+/i.test(request)) return "repository";
+  if (/(?:^|\s)(?:\.\.?[\\/]|[A-Za-z]:\\\\|\/)[^\s]+/.test(request)) {
+    return /\.so\b|\.elf\b|\.bin\b|\.o\b/i.test(request) ? "bytecode" : "file";
+  }
+  if (/\b(?:transaction )?signature\b/i.test(request) && /[1-9A-HJ-NP-Za-km-z]{64,88}/.test(request)) return "transaction_signature";
+  if (/\baccount\b/i.test(request) && /[1-9A-HJ-NP-Za-km-z]{32,44}/.test(request)) return "account";
+  if (/\bprogram(?: id)?\b/i.test(request) && /[1-9A-HJ-NP-Za-km-z]{32,44}/.test(request)) return "program_id";
+  if (/\bIDL\b/i.test(request) && /\.json\b|\.idl\b/i.test(request)) return "idl";
+  return "unknown";
+}
+
 function subjectPresent(request: string): boolean {
-  return /\b(signature|account|program id)\b/i.test(request) && /[1-9A-HJ-NP-Za-km-z]{32,88}/.test(request);
+  return targetKindOf(request) !== "unknown";
+}
+
+function networkOf(request: string): string {
+  if (/\bmainnet(?:-beta)?\b/i.test(request)) return "mainnet";
+  if (/\bdevnet\b/i.test(request)) return "devnet";
+  if (/\btestnet\b/i.test(request)) return "testnet";
+  if (/\blocalnet\b|\blocal validator\b|\blitesvm\b|\bmollusk\b/i.test(request)) return "localnet";
+  return "unknown";
+}
+
+function readOnlyPublicIntent(request: string, intent: string, targetKind: string): boolean {
+  if (targetKind === "repository" || targetKind === "file" || targetKind === "bytecode" || targetKind === "idl") {
+    return !/\b(deploy|send|sign|transfer|upgrade|publish|drain|steal|phish)\b/i.test(request);
+  }
+  return (intent === "forensics" || /\bread[- ]only\b|public rpc|lookup|inspect public/i.test(request)) &&
+    !/\b(deploy|send|sign|transfer|upgrade|publish|drain|steal|phish)\b/i.test(request);
 }
 
 
@@ -231,7 +259,7 @@ export function decide(request: string): Decision {
     const loadedPrimary = getSkill(primaryRule.primary);
     if (!loadedPrimary) {
       discarded.push({ ruleId: primaryRule.id, reason: "Primary skill is not in the registry." });
-    } else if (loadedPrimary.gates.length < 7) {
+    } else if (loadedPrimary.gates.length < MANDATORY_GATES.length) {
       discarded.push({ ruleId: primaryRule.id, reason: "Primary skill does not declare the mandatory gates." });
     } else {
       primary = loadedPrimary;
@@ -245,7 +273,7 @@ export function decide(request: string): Decision {
       for (const id of secondaryIds) {
         if (skillIds.has(id) || secondary.length >= 3) continue;
         const skill = getSkill(id);
-        if (!skill || skill.gates.length < 7) {
+        if (!skill || skill.gates.length < MANDATORY_GATES.length) {
           discarded.push({ ruleId: primaryRule.id, reason: `Dropped secondary ${id}.` });
           continue;
         }
@@ -273,6 +301,23 @@ export function decide(request: string): Decision {
     evidenceRequirements,
     forensicsHasSubject: subjectPresent(request),
     intent: classification.intent,
+    targetPresent: subjectPresent(request),
+    targetKind: targetKindOf(request),
+    authorizedScope: false,
+    readOnlyPublicAnalysis: readOnlyPublicIntent(request, classification.intent, targetKindOf(request)),
+    network: networkOf(request),
+    externalAction: /^\s*(?:please\s+)?(?:deploy|send|sign|transfer|airdrop|drain|steal|phish|upgrade|publish|close account|change authority)\b/i.test(request) ? "mutating" : "none",
+    availableSkillsKnown: false,
+    unavailableSkills: callHierarchy.loadOrder.filter((id) => !getSkill(id)),
+    availableToolsKnown: false,
+    requiredResources: [
+      ...new Set([
+        ...(primaryRule?.curriculum ?? []).map((id) => CURRICULUM[id]?.path ?? `courses/${id}`),
+        ...(primaryRule?.evidence ?? []).map((item) => item.repo),
+        ...(primaryRule?.evidenceRequirements ?? []),
+      ]),
+    ],
+    verifiedResources: [],
   });
 
   const gateState = worst(gates);
