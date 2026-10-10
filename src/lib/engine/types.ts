@@ -4,6 +4,8 @@ export type Intent =
   | "reverse_engineering"
   | "runtime_research"
   | "curriculum_authoring"
+  | "migration"
+  | "testing"
   | "implementation"
   | "analysis"
   | "generic";
