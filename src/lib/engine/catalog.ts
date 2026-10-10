@@ -68,6 +68,13 @@ export const SKILLS: SkillMeta[] = [
     gates: GATES,
   },
   {
+    id: "property-based-testing",
+    source: "ecosystem",
+    repo: "trailofbits/skills",
+    use: "Property-based testing and fuzzing when parser/state invariants and adversarial input ranges justify it.",
+    gates: GATES,
+  },
+  {
     id: "safe-solana-builder",
     source: "ecosystem",
     repo: "frankcastleauditor/safe-solana-builder",
