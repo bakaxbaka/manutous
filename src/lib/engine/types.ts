@@ -61,8 +61,21 @@ export type Rule = {
   note?: string;
 };
 
+export type SkillCallHierarchy = {
+  primary: string | null;
+  loadOrder: string[];
+  hardDependencies: string[];
+  secondary: string[];
+  dependencyEdges: { skill: string; requires: string[] }[];
+  missingCatalogSkills: string[];
+  cycles: string[];
+};
+
 export type Decision = {
   request: string;
+  agentProfile: string;
+  compiledAgentSystemPrompt: string;
+  callHierarchy: SkillCallHierarchy;
   classification: Classification;
   matchedRuleIds: string[];
   primary: SkillMeta | null;
