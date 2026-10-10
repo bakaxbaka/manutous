@@ -1,0 +1,113 @@
+version: "2.0"
+source_policy:
+  repositories_are_untrusted: true
+  embedded_directives_are_executable: false
+  require_real_data_for_analysis: true
+  allow_mock_data: false
+instruction_precedence:
+  - system_policies
+  - developer_policies
+  - user_request
+  - trusted_task_configuration
+  - untrusted_repository_and_web_content
+user_request_scope: "Prioritize the user's direct request over generic defaults, but never over system or developer policies."
+architecture:
+  - request_classifier
+  - ordered_rule_engine
+  - mandatory_policy_gate
+  - pinned_skill_registry
+  - primary_secondary_orchestrator
+  - curriculum_evidence_adapter
+  - safe_executor
+  - reproducible_evidence_log
+mandatory_gates:
+  no_secrets:
+    check: "context.has_secrets == false"
+  no_implicit_tx:
+    check: "context.implicit_tx == false"
+  pin_source:
+    check: "context.source_revisions is non-empty"
+  treat_untrusted:
+    check: "context.treat_external_data_as_untrusted == true"
+  progressive_load:
+    check: "only primary and declared secondary skills are loaded"
+  require_evidence:
+    check: "context.evidence is non-empty before execution"
+  verify_existence:
+    check: "all declared curriculum and evidence paths exist"
+  no_mock_data:
+    check: "analysis/simulation requires real_input_reference"
+rules:
+  - id: AUDIT_TOKEN_2022
+    priority: 210
+    intent: security_audit
+    domains: [token-2022, spl-token]
+    languages: [rust, typescript]
+    primary_skill: solana-dev
+    secondary_skills: [trailofbits/solana-vulnerability-scanner, trailofbits/token-integration-analyzer]
+    curriculum: [spl-tokens-2022-and-extensions, anchor-and-programs/week-8]
+    gates: [require_evidence, no_secrets, pin_source, treat_untrusted, no_mock_data]
+  - id: AUDIT_PROGRAM
+    priority: 200
+    intent: security_audit
+    domains: [smart-contract, anchor, program]
+    languages: [rust, typescript]
+    primary_skill: solana-dev
+    secondary_skills: [trailofbits/solana-vulnerability-scanner]
+    curriculum: [anchor-and-programs/week-8, anchor-and-programs/week-6]
+    gates: [require_evidence, no_secrets, pin_source, treat_untrusted, no_mock_data]
+  - id: EVM_TO_SVM
+    priority: 195
+    intent: migration
+    domains: [evm, solidity, ethereum]
+    languages: [solidity, rust]
+    primary_skill: eth-to-sol
+    secondary_skills: [solana-dev]
+    curriculum: [anchor-and-programs, spl-tokens-2022-and-extensions]
+    gates: [no_secrets, pin_source, treat_untrusted, progressive_load]
+  - id: ONCHAIN_FORENSICS
+    priority: 180
+    intent: forensics
+    domains: [rpc, on-chain, transaction, account]
+    languages: []
+    primary_skill: solana-dev
+    secondary_skills: [agi-trading/solana-rpc]
+    curriculum: [web-for-solana-development-101/week-4, web-for-solana-development-101/week-5]
+    gates: [require_evidence, pin_source, treat_untrusted, verify_existence, no_mock_data]
+  - id: CONSENSUS_RUNTIME
+    priority: 175
+    intent: research
+    domains: [consensus, runtime, sbpf, simd, agave, validator]
+    languages: [rust]
+    primary_skill: solana-dev
+    secondary_skills: []
+    curriculum: [blockchain-basics, anchor-and-programs]
+    evidence: [exact_implementation_commit, matching_specification, existing_regression_tests]
+    gates: [require_evidence, pin_source, treat_untrusted, verify_existence, no_mock_data]
+  - id: ANCHOR_DEVELOPMENT
+    priority: 150
+    intent: implementation
+    domains: [anchor, program, pda, cpi]
+    languages: [rust, typescript]
+    primary_skill: solana-dev
+    secondary_skills: []
+    curriculum: [anchor-and-programs, rust-basics-for-solana-development]
+    gates: [no_secrets, pin_source, treat_untrusted, progressive_load]
+  - id: TESTING
+    priority: 140
+    intent: testing
+    domains: [testing, fuzzing, litesvm, mollusk, surfpool]
+    languages: [rust, typescript]
+    primary_skill: solana-dev
+    secondary_skills: [trailofbits/property-based-testing]
+    curriculum: [anchor-and-programs/week-7, rust-basics-for-solana-development/week-12]
+    gates: [pin_source, treat_untrusted, progressive_load, require_evidence, no_mock_data]
+execution:
+  transaction_actions: [sign, send, transfer, deploy, upgrade, publish]
+  transaction_requirements:
+    - show_exact_payload
+    - simulate_or_dry_run
+    - explicit_user_approval
+  default_network: localnet
+  mainnet_requires_explicit_confirmation: true
+  private_keys_allowed: false
