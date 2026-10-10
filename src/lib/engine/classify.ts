@@ -12,6 +12,8 @@ const DOMAIN_RULES: { domain: string; pattern: RegExp }[] = [
   { domain: "wallet", pattern: /\bwallet\b|\bphantom\b|\brpc\b|frontend|transaction construction/i },
   { domain: "ethereum", pattern: /\bethereum\b|\bsolidity\b|\bevm\b/i },
   { domain: "staking", pattern: /\bstak(e|ing)\b|validator commission|vote credit/i },
+  { domain: "fuzzing", pattern: /fuzz|property-based|arbitrary input/i },
+  { domain: "testing", pattern: /\btest(?:s|ing)?\b|litesvm|mollusk|surfpool|regression test/i },
   { domain: "multisig", pattern: /\bmultisig\b|\bsquads\b/i },
   { domain: "program", pattern: /\bprogram\b|\binstruction\b|\baccount constraint/i },
 ];
