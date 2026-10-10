@@ -321,7 +321,7 @@ export function decide(request: string, context: DecisionContext = {}): Decision
       (validCommit(revision.commit) || validHash(revision.sha256)),
     ),
   );
-  const target = context.target ?? {};
+  const target: NonNullable<DecisionContext["target"]> = context.target ?? {};
   const inferredTargetKind = target.kind ?? targetKindOf(request);
   const targetPinned =
     validCommit(target.commit) ||
