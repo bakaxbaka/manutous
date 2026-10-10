@@ -74,7 +74,7 @@ export function evaluateGates(input: {
   const harmfulMainnetMutation =
     isMainnet &&
     mutating &&
-    /\b(drain|steal|phish|credential extraction|unauthorized exploit)\b/i.test(request);
+    /\b(drain|steal|phish|credential extraction|unauthorized exploit)\b|\bdeploy.{0,40}exploit\b|\bexploit.{0,40}mainnet\b/i.test(request);
   const mutationApproved =
     Boolean(input.explicitApproval) &&
     Boolean(input.transactionSummaryPresent) &&
