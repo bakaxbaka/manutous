@@ -73,6 +73,34 @@ export type SkillCallHierarchy = {
   cycles: string[];
 };
 
+export type DecisionContext = {
+  target?: {
+    kind?: "repository" | "file" | "program_id" | "transaction_signature" | "account" | "idl" | "bytecode" | "on_chain_data" | "unknown";
+    pathOrId?: string;
+    commit?: string;
+    sha256?: string;
+    signature?: string;
+    address?: string;
+    programId?: string;
+  };
+  network?: "localnet" | "devnet" | "testnet" | "mainnet" | "mainnet-beta" | "unknown";
+  externalAction?: "none" | "read" | "simulate" | "sign" | "send" | "transfer" | "deploy" | "upgrade" | "publish" | "close-account" | "change-authority";
+  authorizedScope?: boolean;
+  readOnlyPublicAnalysis?: boolean;
+  explicitUserApproval?: boolean;
+  mainnetConfirmed?: boolean;
+  transactionSummaryPresent?: boolean;
+  simulationSucceeded?: boolean;
+  sourceRevisions?: { repo: string; commit?: string; sha256?: string }[];
+  realInputReference?: string;
+  evidence?: { kind: string; reference: string; note?: string }[];
+  availableSkills?: string[];
+  availableTools?: string[];
+  verifiedResources?: string[];
+  hasSecrets?: boolean;
+  treatExternalDataAsUntrusted?: boolean;
+};
+
 export type Decision = {
   request: string;
   agentProfile: string;
@@ -89,6 +117,7 @@ export type Decision = {
   evidenceRequirements: string[];
   gates: GateResult[];
   executor: "stopped" | "dry-run";
+  executionStatus: "blocked_by_policy" | "blocked_pending_gates" | "ready_for_review";
   note?: string;
   pipeline: { step: string; state: GateState; detail: string }[];
 };
