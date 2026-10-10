@@ -1,0 +1,177 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/bakaxbaka/manutous/blob/main/solana-skill-engine-v3.schema.json",
+  "title": "Solana Skill Decision Engine v3 input",
+  "type": "object",
+  "required": [
+    "request"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "request": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "repository",
+            "file",
+            "program_id",
+            "transaction_signature",
+            "account",
+            "idl",
+            "bytecode",
+            "on_chain_data",
+            "unknown"
+          ]
+        },
+        "path_or_id": {
+          "type": "string"
+        },
+        "commit": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{7,40}$"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{64}$"
+        },
+        "program_id": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "signature": {
+          "type": "string"
+        }
+      }
+    },
+    "network": {
+      "enum": [
+        "localnet",
+        "devnet",
+        "testnet",
+        "mainnet",
+        "mainnet-beta"
+      ]
+    },
+    "external_action": {
+      "enum": [
+        "none",
+        "read",
+        "simulate",
+        "sign",
+        "send",
+        "transfer",
+        "deploy",
+        "upgrade",
+        "publish",
+        "close-account",
+        "change-authority"
+      ]
+    },
+    "authorized_scope": {
+      "type": "boolean"
+    },
+    "read_only_public_analysis": {
+      "type": "boolean"
+    },
+    "explicit_user_approval": {
+      "type": "boolean"
+    },
+    "mainnet_confirmed": {
+      "type": "boolean"
+    },
+    "transaction_summary": {
+      "type": "object"
+    },
+    "simulation_result": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "success",
+            "passed",
+            "ok",
+            "simulated_success",
+            "failed"
+          ]
+        }
+      }
+    },
+    "source_revisions": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "real_input_reference": {},
+    "available_skills": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Only identifiers whose content was actually resolved/verified."
+    },
+    "available_tools": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Actual tool inventory visible to the caller."
+    },
+    "skill_registry": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "requires": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "verified_paths": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "exists"
+        ],
+        "properties": {
+          "resource": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "exists": {
+            "type": "boolean"
+          },
+          "commit": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "has_secrets": {
+      "type": "boolean"
+    },
+    "treat_external_data_as_untrusted": {
+      "type": "boolean"
+    },
+    "implicit_tx": {
+      "type": "boolean"
+    }
+  }
+}
