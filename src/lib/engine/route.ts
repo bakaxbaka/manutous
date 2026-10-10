@@ -279,9 +279,6 @@ export function decide(request: string): Decision {
   const agentProfile = profileFor(classification);
   const compiledAgentSystemPrompt = compileTaskPrompt({
     request,
-    agentProfile,
-    compiledAgentSystemPrompt,
-    callHierarchy,
     classification,
     matchedRuleIds: matched.map((rule) => rule.id),
     primary,
@@ -342,6 +339,9 @@ export function decide(request: string): Decision {
 
   return {
     request,
+    agentProfile,
+    compiledAgentSystemPrompt,
+    callHierarchy,
     classification,
     matchedRuleIds: matched.map((rule) => rule.id),
     primary,
