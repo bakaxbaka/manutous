@@ -1,0 +1,1680 @@
+{
+  "sha": "7763a38133ff1ff9f2f02ac588a8a9513df439bd",
+  "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/7763a38133ff1ff9f2f02ac588a8a9513df439bd",
+  "tree": [
+    {
+      "path": ".github",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "abfa0bd67833bddb891bfd79b03be07e814f0aa8",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/abfa0bd67833bddb891bfd79b03be07e814f0aa8"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "e5298b5b0782193bc5824249e97b695b561bdfca",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/e5298b5b0782193bc5824249e97b695b561bdfca"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/bug_report.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "45bf82987d30b35134a95c6d68316a08a0857a66",
+      "size": 1325,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/45bf82987d30b35134a95c6d68316a08a0857a66"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/content_bug.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d37b79eee2673296d1ef6b27671ec242aa4fd290",
+      "size": 232,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/d37b79eee2673296d1ef6b27671ec242aa4fd290"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/enhancement.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5330a843a7bcb73b6744517a77bf9ff41f39b18b",
+      "size": 203,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/5330a843a7bcb73b6744517a77bf9ff41f39b18b"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/feature_request.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "522af2ea083c7693dab3ed36b415c3a1288ef151",
+      "size": 1273,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/522af2ea083c7693dab3ed36b415c3a1288ef151"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/outdated_content.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7afc9f5e7b799cf4a867b59686483efb3dd6a46c",
+      "size": 1045,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/7afc9f5e7b799cf4a867b59686483efb3dd6a46c"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/quaterly_review.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "28c26c62882b12798560839e881c00e111827275",
+      "size": 444,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/28c26c62882b12798560839e881c00e111827275"
+    },
+    {
+      "path": ".github/PULL_REQUEST_TEMPLATE.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "aad06bb80933f1397b91f291a6cacb4e60564910",
+      "size": 1533,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/aad06bb80933f1397b91f291a6cacb4e60564910"
+    },
+    {
+      "path": ".github/workshop_pull_request_template.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "422055d28a22c0f1bbf5bc540311ac4c92692a55",
+      "size": 719,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/422055d28a22c0f1bbf5bc540311ac4c92692a55"
+    },
+    {
+      "path": ".gitignore",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "96fab4fed3424d27f8a5bc04d045afd56574a2d5",
+      "size": 399,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/96fab4fed3424d27f8a5bc04d045afd56574a2d5"
+    },
+    {
+      "path": ".npmrc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "size": 0,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": "README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2263a24582ac367157a593bbe41b6176a3c44134",
+      "size": 1687,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/2263a24582ac367157a593bbe41b6176a3c44134"
+    },
+    {
+      "path": "Solana-rule",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "83372e32efce8aa5e8169849e6fa5ec0f7f8f236",
+      "size": 36564,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/83372e32efce8aa5e8169849e6fa5ec0f7f8f236"
+    },
+    {
+      "path": "audit",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "8011b5ed470aa2d0b2ffe651badfabf50214e58f",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/8011b5ed470aa2d0b2ffe651badfabf50214e58f"
+    },
+    {
+      "path": "audit/COURSE_CHANGES_SUMMARY.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "297c22360fa62610128015cd8b5c9ac8a8603d04",
+      "size": 5359,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/297c22360fa62610128015cd8b5c9ac8a8603d04"
+    },
+    {
+      "path": "courses",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "0c36caa89e59b0ce11dcc7e30edc09c926eede53",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/0c36caa89e59b0ce11dcc7e30edc09c926eede53"
+    },
+    {
+      "path": "courses/MAINTENANCE.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "09e4ebe01fa6258189793ffc33582a31119194ca",
+      "size": 3021,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/09e4ebe01fa6258189793ffc33582a31119194ca"
+    },
+    {
+      "path": "courses/SURVEY.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f161ce7c44188e2e05bda8fc87311edebbd96cec",
+      "size": 334,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/f161ce7c44188e2e05bda8fc87311edebbd96cec"
+    },
+    {
+      "path": "courses/anchor-and-programs",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "e5de4b5b3b960905a979dd6ae3ec3b39b0a10d3d",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/e5de4b5b3b960905a979dd6ae3ec3b39b0a10d3d"
+    },
+    {
+      "path": "courses/anchor-and-programs/course-plan.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b8f0f334e3a558dcb7f20c3abc8af6b435f51317",
+      "size": 6676,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/b8f0f334e3a558dcb7f20c3abc8af6b435f51317"
+    },
+    {
+      "path": "courses/anchor-and-programs/modules",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "2546a473665404a7a671c0a221ba171d042a037c",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/2546a473665404a7a671c0a221ba171d042a037c"
+    },
+    {
+      "path": "courses/anchor-and-programs/modules/week-1-anchor-introduction.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "91245a2e36839536bdddb16667124bab37c2ffa3",
+      "size": 2388,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/91245a2e36839536bdddb16667124bab37c2ffa3"
+    },
+    {
+      "path": "courses/anchor-and-programs/modules/week-10-upgrade-authority-versioning.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "578f3e09cd87b84aadfb08e08327b17b3c7f4b5c",
+      "size": 11298,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/578f3e09cd87b84aadfb08e08327b17b3c7f4b5c"
+    },
+    {
+      "path": "courses/anchor-and-programs/modules/week-11-complex-state-machines.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cb005ce3b1af3054473fee2d8f6d217bd15defbf",
+      "size": 10700,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/cb005ce3b1af3054473fee2d8f6d217bd15defbf"
+    },
+    {
+      "path": "courses/anchor-and-programs/modules/week-12-integration-patterns.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b4492c815bdb02d443968a01bf4e8a8dcedddb74",
+      "size": 20632,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/b4492c815bdb02d443968a01bf4e8a8dcedddb74"
+    },
+    {
+      "path": "courses/anchor-and-programs/modules/week-13-multisig-core-architecture.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "84bba8ada7ae16292c239ad1bb868520c5c7de0b",
+      "size": 4636,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/84bba8ada7ae16292c239ad1bb868520c5c7de0b"
+    },
+    {
+      "path": "courses/anchor-and-programs/modules/week-14-timelock-approval-workflows.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4e0073dfe3888100af859e5ee9528aea8bfd5f09",
+      "size": 5737,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/4e0073dfe3888100af859e5ee9528aea8bfd5f09"
+    },
+    {
+      "path": "courses/anchor-and-programs/modules/week-15-emergency-procedures-recovery.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "60a631f3f7dd199bd7686387bed8f0cfcc399eb5",
+      "size": 8530,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/60a631f3f7dd199bd7686387bed8f0cfcc399eb5"
+    },
+    {
+      "path": "courses/anchor-and-programs/modules/week-2-state-definition.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "21c775102deb847e37bf704e4c333292490134a5",
+      "size": 1824,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/21c775102deb847e37bf704e4c333292490134a5"
+    },
+    {
+      "path": "courses/anchor-and-programs/modules/week-3-instruction-contexts.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dab78c374678731abe61dd36e4c60e4ab6b33dc5",
+      "size": 3177,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/dab78c374678731abe61dd36e4c60e4ab6b33dc5"
+    },
+    {
+      "path": "courses/anchor-and-programs/modules/week-4-pda-fundamentals.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0fd28f61d9ac9270e706bd5ccb5c6d448b7b6d0a",
+      "size": 2852,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/0fd28f61d9ac9270e706bd5ccb5c6d448b7b6d0a"
+    },
+    {
+      "path": "courses/anchor-and-programs/modules/week-5-advanced-pda-patterns.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "354c849f7a9a2c864b76ef94a6c2840d238f6c18",
+      "size": 4159,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/354c849f7a9a2c864b76ef94a6c2840d238f6c18"
+    },
+    {
+      "path": "courses/anchor-and-programs/modules/week-6-cross-program-invocations.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0b71d08fab08dfb76b1fbd6829029d0cb41c5dff",
+      "size": 5202,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/0b71d08fab08dfb76b1fbd6829029d0cb41c5dff"
+    },
+    {
+      "path": "courses/anchor-and-programs/modules/week-7-testing-litesvm.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1ddb68655055128148183b956381241d073994c8",
+      "size": 13926,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/1ddb68655055128148183b956381241d073994c8"
+    },
+    {
+      "path": "courses/anchor-and-programs/modules/week-8-security-vulnerability-analysis.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b3c9d4ee35a6a489ad3a334e428ec468a856f7e0",
+      "size": 7228,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/b3c9d4ee35a6a489ad3a334e428ec468a856f7e0"
+    },
+    {
+      "path": "courses/anchor-and-programs/modules/week-9-compute-optimization.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b90cfb7a18a8db3a9fdac663f37ac02d22b13a6f",
+      "size": 9490,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/b90cfb7a18a8db3a9fdac663f37ac02d22b13a6f"
+    },
+    {
+      "path": "courses/anchor-and-programs/teaching-resources.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f29dbc7e7019e82015d6694fe093c22282cb0d38",
+      "size": 10935,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/f29dbc7e7019e82015d6694fe093c22282cb0d38"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "48d10902ceae87dcbe2671e64072577ff237d0c8",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/48d10902ceae87dcbe2671e64072577ff237d0c8"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-1h",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "adde11b785537a716d6de3cc4b8706c648d2befb",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/adde11b785537a716d6de3cc4b8706c648d2befb"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-1h/README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "35b6ecffae4c2c0231a8f23382095c2bdcf655cc",
+      "size": 7123,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/35b6ecffae4c2c0231a8f23382095c2bdcf655cc"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-1h/code",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "732a9ad6b6e22a41e6a36f623976b2633c960276",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/732a9ad6b6e22a41e6a36f623976b2633c960276"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-1h/code/counter",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "e74fcc55b8a7b02caff8c4ccf0f7fe415ee0a67d",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/e74fcc55b8a7b02caff8c4ccf0f7fe415ee0a67d"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-1h/code/counter/.gitignore",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d438bbb45f70f9bcbcfe14b667ef9bbea12e0335",
+      "size": 121,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/d438bbb45f70f9bcbcfe14b667ef9bbea12e0335"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-1h/code/counter/.prettierignore",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "414258343f682e52142eeb3fe08b13c753c10e31",
+      "size": 61,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/414258343f682e52142eeb3fe08b13c753c10e31"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-1h/code/counter/Anchor.toml",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c6d93272838baa01a571e94aff9ddc74e76d34f4",
+      "size": 432,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/c6d93272838baa01a571e94aff9ddc74e76d34f4"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-1h/code/counter/Cargo.lock",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "21bdbf0cb98a225ff5fde0346906752d784131b5",
+      "size": 55965,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/21bdbf0cb98a225ff5fde0346906752d784131b5"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-1h/code/counter/Cargo.toml",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f397704811733aec712c2e03e7a6f671c81c2f6b",
+      "size": 215,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/f397704811733aec712c2e03e7a6f671c81c2f6b"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-1h/code/counter/package.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2c7baaad96a856e94f419e169e3807a752bbec38",
+      "size": 1103,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/2c7baaad96a856e94f419e169e3807a752bbec38"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-1h/code/counter/programs",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "2a0ce013401899885ce4f336c00a7686e17a8c9d",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/2a0ce013401899885ce4f336c00a7686e17a8c9d"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-1h/code/counter/programs/counter",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "5013297ed6794c296546d730c38d57983a7619f9",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/5013297ed6794c296546d730c38d57983a7619f9"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-1h/code/counter/programs/counter/Cargo.toml",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6203215632688b2bd74eca58ccb26c823615e886",
+      "size": 486,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/6203215632688b2bd74eca58ccb26c823615e886"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-1h/code/counter/programs/counter/keys",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "880668a5db7fa65b369d29f678f690d0063d4ea4",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/880668a5db7fa65b369d29f678f690d0063d4ea4"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-1h/code/counter/programs/counter/keys/counter-keypair.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9b77473b95217b29fd668fcb35f40c80c9b936e0",
+      "size": 240,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/9b77473b95217b29fd668fcb35f40c80c9b936e0"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-1h/code/counter/programs/counter/src",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "9a40f57b5ff4af23d8c3192ddd538c15e4e3a1e7",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/9a40f57b5ff4af23d8c3192ddd538c15e4e3a1e7"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-1h/code/counter/programs/counter/src/lib.rs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fa11ba9593644565b8652b7b6882859c760deaf5",
+      "size": 914,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/fa11ba9593644565b8652b7b6882859c760deaf5"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-1h/code/counter/rust-toolchain.toml",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cb684c012375408adedaca62213299cfe861f723",
+      "size": 85,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/cb684c012375408adedaca62213299cfe861f723"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-1h/code/counter/tests",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "45bfbedc420c7382ebcb43ad8ba30b982ef63e2a",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/45bfbedc420c7382ebcb43ad8ba30b982ef63e2a"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-1h/code/counter/tests/counter.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9abe6eeb6af1c4d6e50da8cd700b6d95503603b3",
+      "size": 1785,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/9abe6eeb6af1c4d6e50da8cd700b6d95503603b3"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-1h/code/counter/tsconfig.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cd5d2e3d062e650c9105379435e132bdad387919",
+      "size": 205,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/cd5d2e3d062e650c9105379435e132bdad387919"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-1h/code/counter/yarn.lock",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e86206d247ff90d5b144ff851539981a45b35716",
+      "size": 51936,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/e86206d247ff90d5b144ff851539981a45b35716"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-1h/code/final",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "273e9a57d4abc4263b32bfbbb572ae00dd860628",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/273e9a57d4abc4263b32bfbbb572ae00dd860628"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-1h/code/final/Anchor.toml",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d12928f7855ffc618afeec53b1ce9a498b0b844e",
+      "size": 949,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/d12928f7855ffc618afeec53b1ce9a498b0b844e"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-1h/code/final/README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c978294d4014e71077ccb27ab5bf1c7f43d6154d",
+      "size": 5724,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/c978294d4014e71077ccb27ab5bf1c7f43d6154d"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-1h/code/final/programs",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "1c889413a40ca84ab1ff3633b8f6a7d339126e8c",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/1c889413a40ca84ab1ff3633b8f6a7d339126e8c"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-1h/code/final/programs/counter",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "293cb5fd505e8d9e84ab63a5d68a52d2d76039c1",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/293cb5fd505e8d9e84ab63a5d68a52d2d76039c1"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-1h/code/final/programs/counter/src",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "b27a1fdb8f94cccced219e15b9f40c8e729132f2",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/b27a1fdb8f94cccced219e15b9f40c8e729132f2"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-1h/code/final/programs/counter/src/lib.rs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "33e6cc9905862a0b8f388aca848072967044e836",
+      "size": 5386,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/33e6cc9905862a0b8f388aca848072967044e836"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-1h/code/final/tests",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "23078cac03e4efce9305fe4dbf5eccb646da1da1",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/23078cac03e4efce9305fe4dbf5eccb646da1da1"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-1h/code/final/tests/counter.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "91fa6bbe3100c670ea6c8bba4b384fe4481a0519",
+      "size": 6393,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/91fa6bbe3100c670ea6c8bba4b384fe4481a0519"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-3h",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "c7b8cfacf4384ee4a75bf1bddab0c530d82a3989",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/c7b8cfacf4384ee4a75bf1bddab0c530d82a3989"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-3h/.gitignore",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8dbf22145165ece1c06ce4bc6c42edb0001b4642",
+      "size": 386,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/8dbf22145165ece1c06ce4bc6c42edb0001b4642"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-3h/README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "abb7640a853d6adaf5c898853d9e0acb7ad58d4b",
+      "size": 8992,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/abb7640a853d6adaf5c898853d9e0acb7ad58d4b"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-3h/code",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "878424822fc40c4d96cb079e85ac46554d45bfc8",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/878424822fc40c4d96cb079e85ac46554d45bfc8"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-3h/code/README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ac2ea925ba8c4deb454a8d37e0b2897c3cb6ffab",
+      "size": 8077,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/ac2ea925ba8c4deb454a8d37e0b2897c3cb6ffab"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-3h/code/client",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "a7efdf1dd9670abdd20d96555c76050bea4d0009",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/a7efdf1dd9670abdd20d96555c76050bea4d0009"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-3h/code/client/callProgram.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ed15bcce2accc783560b9341f54bd0dc2047ce59",
+      "size": 8476,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/ed15bcce2accc783560b9341f54bd0dc2047ce59"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-3h/code/client/counter.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c03295c1358983da638df960dde8343574d37270",
+      "size": 3486,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/c03295c1358983da638df960dde8343574d37270"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-3h/code/client/counter.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4804887bc117a0374a59c4736aee9547e53bef74",
+      "size": 3712,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/4804887bc117a0374a59c4736aee9547e53bef74"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-3h/code/client/package.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a6e7804a938026d687bf30e1e80139daddc4734a",
+      "size": 412,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/a6e7804a938026d687bf30e1e80139daddc4734a"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-3h/code/client/tsconfig.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "05f0e5bffc690cd6b053ee88a6dcfde631285f4c",
+      "size": 382,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/05f0e5bffc690cd6b053ee88a6dcfde631285f4c"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-3h/code/counter",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "ee879d5a38f5ff51f6b06fe6fb424118de785fce",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/ee879d5a38f5ff51f6b06fe6fb424118de785fce"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-3h/code/counter/Anchor.toml",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "712485d5e956cb9c34db264f637f0834195daea0",
+      "size": 432,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/712485d5e956cb9c34db264f637f0834195daea0"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-3h/code/counter/Cargo.toml",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f397704811733aec712c2e03e7a6f671c81c2f6b",
+      "size": 215,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/f397704811733aec712c2e03e7a6f671c81c2f6b"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-3h/code/counter/package.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2c7baaad96a856e94f419e169e3807a752bbec38",
+      "size": 1103,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/2c7baaad96a856e94f419e169e3807a752bbec38"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-3h/code/counter/programs",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "0c5204e1e13de51fb476118b8aea9ff6bcc1be64",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/0c5204e1e13de51fb476118b8aea9ff6bcc1be64"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-3h/code/counter/programs/counter",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "b17105777a12424c570dbfd7985449c2a2c94cb4",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/b17105777a12424c570dbfd7985449c2a2c94cb4"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-3h/code/counter/programs/counter/Cargo.toml",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6203215632688b2bd74eca58ccb26c823615e886",
+      "size": 486,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/6203215632688b2bd74eca58ccb26c823615e886"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-3h/code/counter/programs/counter/src",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "2f846517767ebb67dbdd62d46ed8ff1035cea532",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/2f846517767ebb67dbdd62d46ed8ff1035cea532"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-3h/code/counter/programs/counter/src/lib.rs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "88f8bfc50b4278bb66cf5c17abe3608f35481fad",
+      "size": 1876,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/88f8bfc50b4278bb66cf5c17abe3608f35481fad"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-3h/code/counter/tests",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "d5e6cdd498f9d48dcf1ab3b3af7599b863343a72",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/d5e6cdd498f9d48dcf1ab3b3af7599b863343a72"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-3h/code/counter/tests/counter.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9bb7e33582194ea698623e184f843942cfbe7367",
+      "size": 9013,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/9bb7e33582194ea698623e184f843942cfbe7367"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-3h/code/counter/tsconfig.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cd5d2e3d062e650c9105379435e132bdad387919",
+      "size": 205,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/cd5d2e3d062e650c9105379435e132bdad387919"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-3h/code/final",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "c36c2f115cccedb04b2fa0e55eac7ea175edbce1",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/c36c2f115cccedb04b2fa0e55eac7ea175edbce1"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-3h/code/final/README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b3e3896e7ad096c659aad71588b5b8b01a40018f",
+      "size": 7334,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/b3e3896e7ad096c659aad71588b5b8b01a40018f"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-3h/code/final/callProgram.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ed15bcce2accc783560b9341f54bd0dc2047ce59",
+      "size": 8476,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/ed15bcce2accc783560b9341f54bd0dc2047ce59"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-3h/code/final/counter.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9bb7e33582194ea698623e184f843942cfbe7367",
+      "size": 9013,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/9bb7e33582194ea698623e184f843942cfbe7367"
+    },
+    {
+      "path": "courses/anchor-and-programs/workshop/anchor-3h/code/final/lib.rs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f0c9cc84fc332e2d17ac4caa8c4aa295ab2204c8",
+      "size": 8007,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/f0c9cc84fc332e2d17ac4caa8c4aa295ab2204c8"
+    },
+    {
+      "path": "courses/blockchain-basics",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "00017bcbdf33feb9dc650fb6924de7ec62fe3c9e",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/00017bcbdf33feb9dc650fb6924de7ec62fe3c9e"
+    },
+    {
+      "path": "courses/blockchain-basics/course-plan.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fadf76324aff83a96981f4312e4aa8222e82da09",
+      "size": 7870,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/fadf76324aff83a96981f4312e4aa8222e82da09"
+    },
+    {
+      "path": "courses/blockchain-basics/modules",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "72cdfd8522afc71b2a30dfa2604177e880bf7fee",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/72cdfd8522afc71b2a30dfa2604177e880bf7fee"
+    },
+    {
+      "path": "courses/blockchain-basics/modules/week-1-introduction-distributed-systems-challenges.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "edfd6c1772a1d3edc20f75b0f2e99448f213f31f",
+      "size": 1193,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/edfd6c1772a1d3edc20f75b0f2e99448f213f31f"
+    },
+    {
+      "path": "courses/blockchain-basics/modules/week-10-alternative-consensus-mechanisms.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9a01b48764a0875a61866da7a3580cbc2b9b2514",
+      "size": 980,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/9a01b48764a0875a61866da7a3580cbc2b9b2514"
+    },
+    {
+      "path": "courses/blockchain-basics/modules/week-11-solana-proof-of-history.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "adfc35792758cb0ee76244c85c1b412fee4460af",
+      "size": 1251,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/adfc35792758cb0ee76244c85c1b412fee4460af"
+    },
+    {
+      "path": "courses/blockchain-basics/modules/week-12-solana-architecture-deep-dive.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6653e49934eec2fca71e88fb1e55b18d3331ab9c",
+      "size": 1256,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/6653e49934eec2fca71e88fb1e55b18d3331ab9c"
+    },
+    {
+      "path": "courses/blockchain-basics/modules/week-13-performance-analysis-optimization.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ff11eb70fd22cc0ffd1507c1fac0bd518be00394",
+      "size": 1577,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/ff11eb70fd22cc0ffd1507c1fac0bd518be00394"
+    },
+    {
+      "path": "courses/blockchain-basics/modules/week-14-security-attacks-formal-verification.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5dd64350c9f703493f6fcc4e8ba7c51612faa4ea",
+      "size": 4427,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/5dd64350c9f703493f6fcc4e8ba7c51612faa4ea"
+    },
+    {
+      "path": "courses/blockchain-basics/modules/week-15-future-directions-open-problems.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "88ebc43b26d726727669922285b5accf4dd65889",
+      "size": 4385,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/88ebc43b26d726727669922285b5accf4dd65889"
+    },
+    {
+      "path": "courses/blockchain-basics/modules/week-2-time-order-distributed-systems.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e16ac99d4acec131faf3750bb51f6c7531a8c578",
+      "size": 1197,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/e16ac99d4acec131faf3750bb51f6c7531a8c578"
+    },
+    {
+      "path": "courses/blockchain-basics/modules/week-3-failure-models-system-assumptions.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "996d40b0bd7d591cd3f1969c354004345a79d26c",
+      "size": 1226,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/996d40b0bd7d591cd3f1969c354004345a79d26c"
+    },
+    {
+      "path": "courses/blockchain-basics/modules/week-4-cryptographic-foundations-part-1.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b3abc5594299c9f0112a8a07c5cce38dbb84e615",
+      "size": 1138,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/b3abc5594299c9f0112a8a07c5cce38dbb84e615"
+    },
+    {
+      "path": "courses/blockchain-basics/modules/week-5-cryptographic-foundations-part-2.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f69feea6db03ea5c73208fe38dbc896c2b791195",
+      "size": 1172,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/f69feea6db03ea5c73208fe38dbc896c2b791195"
+    },
+    {
+      "path": "courses/blockchain-basics/modules/week-6-classical-consensus-algorithms.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dcb6fc012c6e2795060ef78821ece8eace53d3e3",
+      "size": 1068,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/dcb6fc012c6e2795060ef78821ece8eace53d3e3"
+    },
+    {
+      "path": "courses/blockchain-basics/modules/week-7-byzantine-fault-tolerance.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f2fb5271a76518c7c5754775b6ccc27549edfef5",
+      "size": 1065,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/f2fb5271a76518c7c5754775b6ccc27549edfef5"
+    },
+    {
+      "path": "courses/blockchain-basics/modules/week-8-bitcoin-nakamoto-consensus.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6043b85a5ceae24b2d6b25ae0e58ba10b769f5b6",
+      "size": 979,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/6043b85a5ceae24b2d6b25ae0e58ba10b769f5b6"
+    },
+    {
+      "path": "courses/blockchain-basics/modules/week-9-analyzing-bitcoin-limitations.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "92e1baf76712e178813e6493d376b0f9ed5b2b14",
+      "size": 1031,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/92e1baf76712e178813e6493d376b0f9ed5b2b14"
+    },
+    {
+      "path": "courses/blockchain-basics/teaching-resources.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b8eec266ffa8af97badfdcdc1ce16c076d405db9",
+      "size": 7678,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/b8eec266ffa8af97badfdcdc1ce16c076d405db9"
+    },
+    {
+      "path": "courses/defi-on-jupiter",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "103f3312f7e2888de170698bf3a971d95df7de6f",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/103f3312f7e2888de170698bf3a971d95df7de6f"
+    },
+    {
+      "path": "courses/defi-on-jupiter/course-plan.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9e169597522707c054f7a2bcc9ed30d3a34b83b1",
+      "size": 5786,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/9e169597522707c054f7a2bcc9ed30d3a34b83b1"
+    },
+    {
+      "path": "courses/defi-on-jupiter/modules",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "07c5812c9d6752ba777c06b27421de5166736bd2",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/07c5812c9d6752ba777c06b27421de5166736bd2"
+    },
+    {
+      "path": "courses/defi-on-jupiter/modules/week-1.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4931a54bec50c03c94e60209be91671537805a72",
+      "size": 19,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/4931a54bec50c03c94e60209be91671537805a72"
+    },
+    {
+      "path": "courses/defi-on-jupiter/teaching-resources.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f4d4cbcdbe7d40837851501390d637078b5b9961",
+      "size": 4789,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/f4d4cbcdbe7d40837851501390d637078b5b9961"
+    },
+    {
+      "path": "courses/rust-basics-for-solana-development",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "5c49a681ac047c0ad28d56e4539ebaadf5e86952",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/5c49a681ac047c0ad28d56e4539ebaadf5e86952"
+    },
+    {
+      "path": "courses/rust-basics-for-solana-development/course-plan.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0d173ba58b60344b6acfc305dcefcf769419553a",
+      "size": 7147,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/0d173ba58b60344b6acfc305dcefcf769419553a"
+    },
+    {
+      "path": "courses/rust-basics-for-solana-development/modules",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "b924a20653f8026399d3f6109203d76364eec23e",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/b924a20653f8026399d3f6109203d76364eec23e"
+    },
+    {
+      "path": "courses/rust-basics-for-solana-development/modules/week-1-rust-setup-basics.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "56a773949756315f451b91d01ef8d3aa3bc840c5",
+      "size": 1503,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/56a773949756315f451b91d01ef8d3aa3bc840c5"
+    },
+    {
+      "path": "courses/rust-basics-for-solana-development/modules/week-10-web-development-axum.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "14dbdc20775a82605907f11d7a2b2b888b5612d5",
+      "size": 1135,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/14dbdc20775a82605907f11d7a2b2b888b5612d5"
+    },
+    {
+      "path": "courses/rust-basics-for-solana-development/modules/week-11-json-apis-networking.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c8fa2cc897c77102bd8d18e90dcf14b0cf2fd2c7",
+      "size": 1119,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/c8fa2cc897c77102bd8d18e90dcf14b0cf2fd2c7"
+    },
+    {
+      "path": "courses/rust-basics-for-solana-development/modules/week-12-testing-project-starter.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "df2a2ccf09294bf35bfb8e1df94309a6345e1477",
+      "size": 1081,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/df2a2ccf09294bf35bfb8e1df94309a6345e1477"
+    },
+    {
+      "path": "courses/rust-basics-for-solana-development/modules/week-13-blockchain-integration-optional.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "160b20e5d4ebee403065f391b0445e5854b7a9f9",
+      "size": 1021,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/160b20e5d4ebee403065f391b0445e5854b7a9f9"
+    },
+    {
+      "path": "courses/rust-basics-for-solana-development/modules/week-14-performance-optimization.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e615d620adb6a3ef875f97eaaa6bd0503c579971",
+      "size": 958,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/e615d620adb6a3ef875f97eaaa6bd0503c579971"
+    },
+    {
+      "path": "courses/rust-basics-for-solana-development/modules/week-15-deployment-best-practices.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0f692c17dc7a983b854b73ba7a31c903dae24279",
+      "size": 1038,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/0f692c17dc7a983b854b73ba7a31c903dae24279"
+    },
+    {
+      "path": "courses/rust-basics-for-solana-development/modules/week-2-control-flow-memory.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fa1a860758d4bfdc254cfa8c11ba47fcb269d811",
+      "size": 1363,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/fa1a860758d4bfdc254cfa8c11ba47fcb269d811"
+    },
+    {
+      "path": "courses/rust-basics-for-solana-development/modules/week-3-ownership-borrowing.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c86711fd9a57d988a81bdd59b6c9ebdaf64f100f",
+      "size": 1208,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/c86711fd9a57d988a81bdd59b6c9ebdaf64f100f"
+    },
+    {
+      "path": "courses/rust-basics-for-solana-development/modules/week-4-lifetimes-structs.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9bf613c6847f310701c82ac94de6392f90c3a3cd",
+      "size": 1514,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/9bf613c6847f310701c82ac94de6392f90c3a3cd"
+    },
+    {
+      "path": "courses/rust-basics-for-solana-development/modules/week-5-enums-pattern-matching.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6777d93ffbb21a49bdeee39a1621e8cd2d57211f",
+      "size": 1255,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/6777d93ffbb21a49bdeee39a1621e8cd2d57211f"
+    },
+    {
+      "path": "courses/rust-basics-for-solana-development/modules/week-6-error-handling-result.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7d26db4f0eb8d35969a4c379a98234cdeab5a159",
+      "size": 1276,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/7d26db4f0eb8d35969a4c379a98234cdeab5a159"
+    },
+    {
+      "path": "courses/rust-basics-for-solana-development/modules/week-7-collections-iterators.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "68ec5d01098cae752eb9c076319fcc2ea7c41977",
+      "size": 1809,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/68ec5d01098cae752eb9c076319fcc2ea7c41977"
+    },
+    {
+      "path": "courses/rust-basics-for-solana-development/modules/week-8-closures-generics-traits.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8f444b1e0f0ef1cb41823f6460c453b168995ab2",
+      "size": 1527,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/8f444b1e0f0ef1cb41823f6460c453b168995ab2"
+    },
+    {
+      "path": "courses/rust-basics-for-solana-development/modules/week-9-async-programming-tokio.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c006dd67c5d4cba62142cd81c0f2caacc7c3fe7e",
+      "size": 1423,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/c006dd67c5d4cba62142cd81c0f2caacc7c3fe7e"
+    },
+    {
+      "path": "courses/rust-basics-for-solana-development/teaching-resources.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "22d02ad6cc7d8663234091d2a3d67e4409bf41d0",
+      "size": 9002,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/22d02ad6cc7d8663234091d2a3d67e4409bf41d0"
+    },
+    {
+      "path": "courses/spl-tokens-2022-and-extensions",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "25e47115002df47e6650b73140928e22da9c5fac",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/25e47115002df47e6650b73140928e22da9c5fac"
+    },
+    {
+      "path": "courses/spl-tokens-2022-and-extensions/course-plan.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4acdbb9412e21aec0f98013245c3178eb9c3d6b8",
+      "size": 6152,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/4acdbb9412e21aec0f98013245c3178eb9c3d6b8"
+    },
+    {
+      "path": "courses/spl-tokens-2022-and-extensions/modules",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "8617e414b56cab092bdd3e14da597ef520c14514",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/8617e414b56cab092bdd3e14da597ef520c14514"
+    },
+    {
+      "path": "courses/spl-tokens-2022-and-extensions/modules/week-1-token-intro.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a535e1a498b63a9f6a2f7ee80194b46ea7e77f63",
+      "size": 1582,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/a535e1a498b63a9f6a2f7ee80194b46ea7e77f63"
+    },
+    {
+      "path": "courses/spl-tokens-2022-and-extensions/modules/week-10-scaled-interest.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0d4f58493bcdf43969a1d946b09cc8515e0756c7",
+      "size": 1339,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/0d4f58493bcdf43969a1d946b09cc8515e0756c7"
+    },
+    {
+      "path": "courses/spl-tokens-2022-and-extensions/modules/week-11-confidential.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "99b9086388be02cd8bf6611977c022e930b2d9b0",
+      "size": 1326,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/99b9086388be02cd8bf6611977c022e930b2d9b0"
+    },
+    {
+      "path": "courses/spl-tokens-2022-and-extensions/modules/week-12-cpi-integration.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "459e77eb47134c1dff7f193169885ccad62c8064",
+      "size": 1316,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/459e77eb47134c1dff7f193169885ccad62c8064"
+    },
+    {
+      "path": "courses/spl-tokens-2022-and-extensions/modules/week-13-extension-combos.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a63b4216a6004281165a31ebce5533ac9344c21f",
+      "size": 1378,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/a63b4216a6004281165a31ebce5533ac9344c21f"
+    },
+    {
+      "path": "courses/spl-tokens-2022-and-extensions/modules/week-14-project-part1.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "27f27626625339e484e47a4b53063134ab749267",
+      "size": 1480,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/27f27626625339e484e47a4b53063134ab749267"
+    },
+    {
+      "path": "courses/spl-tokens-2022-and-extensions/modules/week-15-project-part2.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3a6f6023a95ef603ec98f45b01636ed5565f88af",
+      "size": 1549,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/3a6f6023a95ef603ec98f45b01636ed5565f88af"
+    },
+    {
+      "path": "courses/spl-tokens-2022-and-extensions/modules/week-2-token2022-setup.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "68a666c605f2b69c1807c623bb4e8e1512a3d3ea",
+      "size": 1499,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/68a666c605f2b69c1807c623bb4e8e1512a3d3ea"
+    },
+    {
+      "path": "courses/spl-tokens-2022-and-extensions/modules/week-3-token-accounts.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cc2db037536aa0946f0fee3ebea83aa4305020c3",
+      "size": 1562,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/cc2db037536aa0946f0fee3ebea83aa4305020c3"
+    },
+    {
+      "path": "courses/spl-tokens-2022-and-extensions/modules/week-4-transfer-hooks-intro.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "eeb8066963dfb11ac599aca8a3e63fce4448c09f",
+      "size": 1545,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/eeb8066963dfb11ac599aca8a3e63fce4448c09f"
+    },
+    {
+      "path": "courses/spl-tokens-2022-and-extensions/modules/week-5-transfer-hooks-advanced.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "108e2de46385ef459c158fdbd0480d6c293d6ea4",
+      "size": 1546,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/108e2de46385ef459c158fdbd0480d6c293d6ea4"
+    },
+    {
+      "path": "courses/spl-tokens-2022-and-extensions/modules/week-6-transfer-fees.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6303e8b7e9d17b3af98f9ff0445b9ac7a47cc74e",
+      "size": 1387,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/6303e8b7e9d17b3af98f9ff0445b9ac7a47cc74e"
+    },
+    {
+      "path": "courses/spl-tokens-2022-and-extensions/modules/week-7-metadata.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "018f3bcb0af416a034cad447790f1098d12cae62",
+      "size": 1475,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/018f3bcb0af416a034cad447790f1098d12cae62"
+    },
+    {
+      "path": "courses/spl-tokens-2022-and-extensions/modules/week-8-non-transferable.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7fe6fc043049b6457c987111e1796c6bec1a884d",
+      "size": 1374,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/7fe6fc043049b6457c987111e1796c6bec1a884d"
+    },
+    {
+      "path": "courses/spl-tokens-2022-and-extensions/modules/week-9-pausable-permanent.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ad1983d3017911afcff6bebcd7e1c9e93d372147",
+      "size": 1489,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/ad1983d3017911afcff6bebcd7e1c9e93d372147"
+    },
+    {
+      "path": "courses/spl-tokens-2022-and-extensions/teaching-resources.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7f0e03d077ccfaf82594df9aeba92791f01216ba",
+      "size": 12209,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/7f0e03d077ccfaf82594df9aeba92791f01216ba"
+    },
+    {
+      "path": "courses/web-for-solana-development-101",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "bb6cbcc501a11a1acb23d0c65dbcdb89c579e2eb",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/bb6cbcc501a11a1acb23d0c65dbcdb89c579e2eb"
+    },
+    {
+      "path": "courses/web-for-solana-development-101/course-plan.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4d9a5743f24bbb13118e326295fcf98dd30ed970",
+      "size": 8425,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/4d9a5743f24bbb13118e326295fcf98dd30ed970"
+    },
+    {
+      "path": "courses/web-for-solana-development-101/modules",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "f5709d06082c5dc07ceb008dbdc8673400a53ba0",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/f5709d06082c5dc07ceb008dbdc8673400a53ba0"
+    },
+    {
+      "path": "courses/web-for-solana-development-101/modules/week-1-environment-setup-gill-intro.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3f77579be02cd03cf42efc09faad3e176cc63b47",
+      "size": 5829,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/3f77579be02cd03cf42efc09faad3e176cc63b47"
+    },
+    {
+      "path": "courses/web-for-solana-development-101/modules/week-10-advanced-note-features.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e97875a7cbbd7f8c994e768f0500f5fde9380262",
+      "size": 9456,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/e97875a7cbbd7f8c994e768f0500f5fde9380262"
+    },
+    {
+      "path": "courses/web-for-solana-development-101/modules/week-11-performance-optimization.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "350ffa87b608c52f1c9093148fe779defd398664",
+      "size": 9880,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/350ffa87b608c52f1c9093148fe779defd398664"
+    },
+    {
+      "path": "courses/web-for-solana-development-101/modules/week-12-security-best-practices.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "efcea75f04057ffc8d19a1c4fb77a96983df1b49",
+      "size": 11237,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/efcea75f04057ffc8d19a1c4fb77a96983df1b49"
+    },
+    {
+      "path": "courses/web-for-solana-development-101/modules/week-13-deployment-monitoring.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4fdd26fbc10dccb6f12fc9a2b9c99a1a662d3b09",
+      "size": 11195,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/4fdd26fbc10dccb6f12fc9a2b9c99a1a662d3b09"
+    },
+    {
+      "path": "courses/web-for-solana-development-101/modules/week-14-advanced-topics.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0fc56abea5bc104409fb057f22bf07e07168a974",
+      "size": 10877,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/0fc56abea5bc104409fb057f22bf07e07168a974"
+    },
+    {
+      "path": "courses/web-for-solana-development-101/modules/week-15-final-project.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e47a022b7f70b4eac511d83cadc97cb9f45d28d1",
+      "size": 12733,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/e47a022b7f70b4eac511d83cadc97cb9f45d28d1"
+    },
+    {
+      "path": "courses/web-for-solana-development-101/modules/week-2-wallet-integration-fundamentals.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "41aeee513064d1fb604c61a933d5f0396029d522",
+      "size": 7527,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/41aeee513064d1fb604c61a933d5f0396029d522"
+    },
+    {
+      "path": "courses/web-for-solana-development-101/modules/week-3-wallet-interactions-signing.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6da1a0d0a51e3b89061eefa583e958534123f523",
+      "size": 8465,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/6da1a0d0a51e3b89061eefa583e958534123f523"
+    },
+    {
+      "path": "courses/web-for-solana-development-101/modules/week-4-rpc-operations.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7e30b486e7d283f72d268fb518aef69c6988eb99",
+      "size": 9137,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/7e30b486e7d283f72d268fb518aef69c6988eb99"
+    },
+    {
+      "path": "courses/web-for-solana-development-101/modules/week-5-transaction-construction.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "40c741969de852e46def90899dfe3c282a9c1827",
+      "size": 9427,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/40c741969de852e46def90899dfe3c282a9c1827"
+    },
+    {
+      "path": "courses/web-for-solana-development-101/modules/week-6-anchor-integration-basics.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8d0c6f15118a1b4a2847feb2a23f161d54ed05d9",
+      "size": 8184,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/8d0c6f15118a1b4a2847feb2a23f161d54ed05d9"
+    },
+    {
+      "path": "courses/web-for-solana-development-101/modules/week-7-advanced-anchor-patterns.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c7cdea5f22798cab14a26830eebae4ff31791814",
+      "size": 9991,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/c7cdea5f22798cab14a26830eebae4ff31791814"
+    },
+    {
+      "path": "courses/web-for-solana-development-101/modules/week-8-project-foundation.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dad952f7c872e4c44fcf2074c9d1dc343afe7df5",
+      "size": 10200,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/dad952f7c872e4c44fcf2074c9d1dc343afe7df5"
+    },
+    {
+      "path": "courses/web-for-solana-development-101/modules/week-9-core-note-features.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "885b41c2d896e69f71d0803451757a1f1e6ef524",
+      "size": 9808,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/885b41c2d896e69f71d0803451757a1f1e6ef524"
+    },
+    {
+      "path": "courses/web-for-solana-development-101/teaching-resources.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b81a43282f741ec096c25f7ff19084e415cb35de",
+      "size": 8103,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/b81a43282f741ec096c25f7ff19084e415cb35de"
+    },
+    {
+      "path": "courses/web3-solana-starter-pack",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "7682545fae14bf5d73cef21429e1e11009195924",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/7682545fae14bf5d73cef21429e1e11009195924"
+    },
+    {
+      "path": "courses/web3-solana-starter-pack/modules",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "b83fef9b0677ffefefa93023803376241f5d6919",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/b83fef9b0677ffefefa93023803376241f5d6919"
+    },
+    {
+      "path": "courses/web3-solana-starter-pack/modules/accounts-and-state.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4f26d7a8e92ae71623816bb284c1ab79b5275ded",
+      "size": 5792,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/4f26d7a8e92ae71623816bb284c1ab79b5275ded"
+    },
+    {
+      "path": "courses/web3-solana-starter-pack/modules/blockchain-platforms-and-how-solana-stands-out.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0f0c8311013bf10d02cbd2801393028d64d017f7",
+      "size": 6174,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/0f0c8311013bf10d02cbd2801393028d64d017f7"
+    },
+    {
+      "path": "courses/web3-solana-starter-pack/modules/builder-path.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fbafdb1487c6971d29e156e8db7b93340fae0459",
+      "size": 4367,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/fbafdb1487c6971d29e156e8db7b93340fae0459"
+    },
+    {
+      "path": "courses/web3-solana-starter-pack/modules/how-a-blockchain-works.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8f83f8a2735d08a98604d2b33056cda0b7028b17",
+      "size": 3649,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/8f83f8a2735d08a98604d2b33056cda0b7028b17"
+    },
+    {
+      "path": "courses/web3-solana-starter-pack/modules/swap-and-send-payment.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "46914c5dd4630603a218e67215b232d4c939765b",
+      "size": 4393,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/46914c5dd4630603a218e67215b232d4c939765b"
+    },
+    {
+      "path": "courses/web3-solana-starter-pack/modules/tokens-and-nfts.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9ab92781851972132fd0f44d423a382d8f89dca6",
+      "size": 6140,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/9ab92781851972132fd0f44d423a382d8f89dca6"
+    },
+    {
+      "path": "courses/web3-solana-starter-pack/modules/transactions-and-fees.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f72f788ef39e2395d0dff66c072ad7479ae8dc9e",
+      "size": 5703,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/f72f788ef39e2395d0dff66c072ad7479ae8dc9e"
+    },
+    {
+      "path": "courses/web3-solana-starter-pack/modules/wallets-your-web3-passport.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8f5eaeed897e622f129540a950962f6ddd0ad3f8",
+      "size": 7890,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/8f5eaeed897e622f129540a950962f6ddd0ad3f8"
+    },
+    {
+      "path": "courses/web3-solana-starter-pack/modules/web3-solana-starter-pack.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a1bc51e376f906a00206966fba57218bbd2f6647",
+      "size": 3031,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/a1bc51e376f906a00206966fba57218bbd2f6647"
+    },
+    {
+      "path": "courses/web3-solana-starter-pack/modules/why-blockchain-matters.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0867cd71253255cd3026d0f2b980ce240a78068d",
+      "size": 4480,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/0867cd71253255cd3026d0f2b980ce240a78068d"
+    },
+    {
+      "path": "courses/web3-solana-starter-pack/modules/why-blockchains-exist-what-problems-they-solve.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "46492c96551bcc100726b33b4c3159c73800c10c",
+      "size": 3469,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/46492c96551bcc100726b33b4c3159c73800c10c"
+    },
+    {
+      "path": "package-lock.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f9a157ff46f0a90166b2855d8bff2a9780aacea1",
+      "size": 158038,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/f9a157ff46f0a90166b2855d8bff2a9780aacea1"
+    },
+    {
+      "path": "package.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7a30f09a12d9984d9537435e315e201f6f496229",
+      "size": 502,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/7a30f09a12d9984d9537435e315e201f6f496229"
+    },
+    {
+      "path": "packages",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "4a1375f75d0dc85db518522a837599882300576b",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/4a1375f75d0dc85db518522a837599882300576b"
+    },
+    {
+      "path": "packages/docs",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "38477cb9dd30343ea585d788afd80556d431c120",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/38477cb9dd30343ea585d788afd80556d431c120"
+    },
+    {
+      "path": "packages/docs/assignment-template.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "92741ce51b81b4da14cf9abbbdd15a6f475586ea",
+      "size": 816,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/92741ce51b81b4da14cf9abbbdd15a6f475586ea"
+    },
+    {
+      "path": "packages/docs/course-plan-format.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "05a64ffac86fd09762bc56e4b0608dcbcfc5d22e",
+      "size": 13576,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/05a64ffac86fd09762bc56e4b0608dcbcfc5d22e"
+    },
+    {
+      "path": "packages/docs/teaching-resource-format.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "05a64ffac86fd09762bc56e4b0608dcbcfc5d22e",
+      "size": 13576,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/05a64ffac86fd09762bc56e4b0608dcbcfc5d22e"
+    },
+    {
+      "path": "packages/eslint-config",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "8ad6d29649a24e3f27f2aca03fa91320d2663fb8",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/8ad6d29649a24e3f27f2aca03fa91320d2663fb8"
+    },
+    {
+      "path": "packages/eslint-config/README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8b42d901b0e8dee2e21313ec0442c50e9fef038a",
+      "size": 72,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/8b42d901b0e8dee2e21313ec0442c50e9fef038a"
+    },
+    {
+      "path": "packages/eslint-config/base.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "09d316efdb6f6db4f6141815e87980a598f6ff54",
+      "size": 653,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/09d316efdb6f6db4f6141815e87980a598f6ff54"
+    },
+    {
+      "path": "packages/eslint-config/next.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6bf01a74edb72f94da7957298427c89debdedc34",
+      "size": 1313,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/6bf01a74edb72f94da7957298427c89debdedc34"
+    },
+    {
+      "path": "packages/eslint-config/package.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "214285c5b5731e379aa16ba3a7508e8fa7d2ec28",
+      "size": 634,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/214285c5b5731e379aa16ba3a7508e8fa7d2ec28"
+    },
+    {
+      "path": "packages/eslint-config/react-internal.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "daeccba24d4f4b95ad293d175b570acd126628a9",
+      "size": 1090,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/daeccba24d4f4b95ad293d175b570acd126628a9"
+    },
+    {
+      "path": "packages/templates",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "54f53da095530154ab8f7f971dd87dc068a5a703",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/54f53da095530154ab8f7f971dd87dc068a5a703"
+    },
+    {
+      "path": "packages/templates/rubric-template",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "0a53b9e08396b661960e22ea128693733d24b7ea",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/0a53b9e08396b661960e22ea128693733d24b7ea"
+    },
+    {
+      "path": "packages/templates/rubric-template/rubric-template.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3b9f413d117285796c7c8c3bcc79b7ccac0fe7c7",
+      "size": 2417,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/3b9f413d117285796c7c8c3bcc79b7ccac0fe7c7"
+    },
+    {
+      "path": "packages/typescript-config",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "4ac12dadfb98442d2f96b2dee2ae25b3405d13fe",
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/4ac12dadfb98442d2f96b2dee2ae25b3405d13fe"
+    },
+    {
+      "path": "packages/typescript-config/base.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5117f2a3d1c5fe54a344a7152acbe366fe63cdda",
+      "size": 500,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/5117f2a3d1c5fe54a344a7152acbe366fe63cdda"
+    },
+    {
+      "path": "packages/typescript-config/nextjs.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e6defa48fce860cf5570f268d4880161a74789c8",
+      "size": 272,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/e6defa48fce860cf5570f268d4880161a74789c8"
+    },
+    {
+      "path": "packages/typescript-config/package.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "27c0e60436aac79bd14661e016c8c5721c5db6d6",
+      "size": 150,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/27c0e60436aac79bd14661e016c8c5721c5db6d6"
+    },
+    {
+      "path": "packages/typescript-config/react-library.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c3a1b26fbb3b6ad5d606836247a8ca3a1be051c6",
+      "size": 136,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/c3a1b26fbb3b6ad5d606836247a8ca3a1be051c6"
+    },
+    {
+      "path": "setup.sh",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "20d34ef16564fcc01c16f61086bf141e28605383",
+      "size": 8425,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/20d34ef16564fcc01c16f61086bf141e28605383"
+    },
+    {
+      "path": "turbo.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d508947573f5271d4e44c7b304bc6e69f86640fd",
+      "size": 414,
+      "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/d508947573f5271d4e44c7b304bc6e69f86640fd"
+    }
+  ],
+  "truncated": false
+}

@@ -1,0 +1,210 @@
+[
+  {
+    "name": ".env.example",
+    "path": ".env.example",
+    "sha": "00f587f9f065476b76158f8aceef2b762ca3915b",
+    "size": 921,
+    "url": "https://api.github.com/repos/solanabr/skills/contents/.env.example?ref=main",
+    "html_url": "https://github.com/solanabr/skills/blob/main/.env.example",
+    "git_url": "https://api.github.com/repos/solanabr/skills/git/blobs/00f587f9f065476b76158f8aceef2b762ca3915b",
+    "download_url": "https://raw.githubusercontent.com/solanabr/skills/main/.env.example",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/solanabr/skills/contents/.env.example?ref=main",
+      "git": "https://api.github.com/repos/solanabr/skills/git/blobs/00f587f9f065476b76158f8aceef2b762ca3915b",
+      "html": "https://github.com/solanabr/skills/blob/main/.env.example"
+    }
+  },
+  {
+    "name": ".github",
+    "path": ".github",
+    "sha": "24f2f18173e1cd8c91fcc93e14531a9b8214e2c5",
+    "size": 0,
+    "url": "https://api.github.com/repos/solanabr/skills/contents/.github?ref=main",
+    "html_url": "https://github.com/solanabr/skills/tree/main/.github",
+    "git_url": "https://api.github.com/repos/solanabr/skills/git/trees/24f2f18173e1cd8c91fcc93e14531a9b8214e2c5",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/solanabr/skills/contents/.github?ref=main",
+      "git": "https://api.github.com/repos/solanabr/skills/git/trees/24f2f18173e1cd8c91fcc93e14531a9b8214e2c5",
+      "html": "https://github.com/solanabr/skills/tree/main/.github"
+    }
+  },
+  {
+    "name": ".gitignore",
+    "path": ".gitignore",
+    "sha": "9e39ef55b4ab2f55f289a60712836add6bdb6cfe",
+    "size": 426,
+    "url": "https://api.github.com/repos/solanabr/skills/contents/.gitignore?ref=main",
+    "html_url": "https://github.com/solanabr/skills/blob/main/.gitignore",
+    "git_url": "https://api.github.com/repos/solanabr/skills/git/blobs/9e39ef55b4ab2f55f289a60712836add6bdb6cfe",
+    "download_url": "https://raw.githubusercontent.com/solanabr/skills/main/.gitignore",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/solanabr/skills/contents/.gitignore?ref=main",
+      "git": "https://api.github.com/repos/solanabr/skills/git/blobs/9e39ef55b4ab2f55f289a60712836add6bdb6cfe",
+      "html": "https://github.com/solanabr/skills/blob/main/.gitignore"
+    }
+  },
+  {
+    "name": "LICENSE",
+    "path": "LICENSE",
+    "sha": "e07657d8a240db7e2aecd2a7bb05b6b5819e4ec6",
+    "size": 1073,
+    "url": "https://api.github.com/repos/solanabr/skills/contents/LICENSE?ref=main",
+    "html_url": "https://github.com/solanabr/skills/blob/main/LICENSE",
+    "git_url": "https://api.github.com/repos/solanabr/skills/git/blobs/e07657d8a240db7e2aecd2a7bb05b6b5819e4ec6",
+    "download_url": "https://raw.githubusercontent.com/solanabr/skills/main/LICENSE",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/solanabr/skills/contents/LICENSE?ref=main",
+      "git": "https://api.github.com/repos/solanabr/skills/git/blobs/e07657d8a240db7e2aecd2a7bb05b6b5819e4ec6",
+      "html": "https://github.com/solanabr/skills/blob/main/LICENSE"
+    }
+  },
+  {
+    "name": "README.md",
+    "path": "README.md",
+    "sha": "5973a56f3cf1ca02d1b6338fca7965c2129a40bd",
+    "size": 7764,
+    "url": "https://api.github.com/repos/solanabr/skills/contents/README.md?ref=main",
+    "html_url": "https://github.com/solanabr/skills/blob/main/README.md",
+    "git_url": "https://api.github.com/repos/solanabr/skills/git/blobs/5973a56f3cf1ca02d1b6338fca7965c2129a40bd",
+    "download_url": "https://raw.githubusercontent.com/solanabr/skills/main/README.md",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/solanabr/skills/contents/README.md?ref=main",
+      "git": "https://api.github.com/repos/solanabr/skills/git/blobs/5973a56f3cf1ca02d1b6338fca7965c2129a40bd",
+      "html": "https://github.com/solanabr/skills/blob/main/README.md"
+    }
+  },
+  {
+    "name": "astro.config.mjs",
+    "path": "astro.config.mjs",
+    "sha": "13c21c41ec2a8dcfd79b355770ceb5d5ea2f9913",
+    "size": 2419,
+    "url": "https://api.github.com/repos/solanabr/skills/contents/astro.config.mjs?ref=main",
+    "html_url": "https://github.com/solanabr/skills/blob/main/astro.config.mjs",
+    "git_url": "https://api.github.com/repos/solanabr/skills/git/blobs/13c21c41ec2a8dcfd79b355770ceb5d5ea2f9913",
+    "download_url": "https://raw.githubusercontent.com/solanabr/skills/main/astro.config.mjs",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/solanabr/skills/contents/astro.config.mjs?ref=main",
+      "git": "https://api.github.com/repos/solanabr/skills/git/blobs/13c21c41ec2a8dcfd79b355770ceb5d5ea2f9913",
+      "html": "https://github.com/solanabr/skills/blob/main/astro.config.mjs"
+    }
+  },
+  {
+    "name": "package-lock.json",
+    "path": "package-lock.json",
+    "sha": "bf434b39e6183974675675252ea9576fcfd6ac31",
+    "size": 215971,
+    "url": "https://api.github.com/repos/solanabr/skills/contents/package-lock.json?ref=main",
+    "html_url": "https://github.com/solanabr/skills/blob/main/package-lock.json",
+    "git_url": "https://api.github.com/repos/solanabr/skills/git/blobs/bf434b39e6183974675675252ea9576fcfd6ac31",
+    "download_url": "https://raw.githubusercontent.com/solanabr/skills/main/package-lock.json",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/solanabr/skills/contents/package-lock.json?ref=main",
+      "git": "https://api.github.com/repos/solanabr/skills/git/blobs/bf434b39e6183974675675252ea9576fcfd6ac31",
+      "html": "https://github.com/solanabr/skills/blob/main/package-lock.json"
+    }
+  },
+  {
+    "name": "package.json",
+    "path": "package.json",
+    "sha": "b86d026cbeef8f5a33bb8b2e779f9f3ff050bd3c",
+    "size": 702,
+    "url": "https://api.github.com/repos/solanabr/skills/contents/package.json?ref=main",
+    "html_url": "https://github.com/solanabr/skills/blob/main/package.json",
+    "git_url": "https://api.github.com/repos/solanabr/skills/git/blobs/b86d026cbeef8f5a33bb8b2e779f9f3ff050bd3c",
+    "download_url": "https://raw.githubusercontent.com/solanabr/skills/main/package.json",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/solanabr/skills/contents/package.json?ref=main",
+      "git": "https://api.github.com/repos/solanabr/skills/git/blobs/b86d026cbeef8f5a33bb8b2e779f9f3ff050bd3c",
+      "html": "https://github.com/solanabr/skills/blob/main/package.json"
+    }
+  },
+  {
+    "name": "public",
+    "path": "public",
+    "sha": "e528e598dab1444216cfd04542078ba8ebd7a6c0",
+    "size": 0,
+    "url": "https://api.github.com/repos/solanabr/skills/contents/public?ref=main",
+    "html_url": "https://github.com/solanabr/skills/tree/main/public",
+    "git_url": "https://api.github.com/repos/solanabr/skills/git/trees/e528e598dab1444216cfd04542078ba8ebd7a6c0",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/solanabr/skills/contents/public?ref=main",
+      "git": "https://api.github.com/repos/solanabr/skills/git/trees/e528e598dab1444216cfd04542078ba8ebd7a6c0",
+      "html": "https://github.com/solanabr/skills/tree/main/public"
+    }
+  },
+  {
+    "name": "scripts",
+    "path": "scripts",
+    "sha": "673691d8dec60320aa1bc681e0dca9403d061772",
+    "size": 0,
+    "url": "https://api.github.com/repos/solanabr/skills/contents/scripts?ref=main",
+    "html_url": "https://github.com/solanabr/skills/tree/main/scripts",
+    "git_url": "https://api.github.com/repos/solanabr/skills/git/trees/673691d8dec60320aa1bc681e0dca9403d061772",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/solanabr/skills/contents/scripts?ref=main",
+      "git": "https://api.github.com/repos/solanabr/skills/git/trees/673691d8dec60320aa1bc681e0dca9403d061772",
+      "html": "https://github.com/solanabr/skills/tree/main/scripts"
+    }
+  },
+  {
+    "name": "src",
+    "path": "src",
+    "sha": "c0ea309ebe1a8d6461abb5aa5a5cc5773a5833f7",
+    "size": 0,
+    "url": "https://api.github.com/repos/solanabr/skills/contents/src?ref=main",
+    "html_url": "https://github.com/solanabr/skills/tree/main/src",
+    "git_url": "https://api.github.com/repos/solanabr/skills/git/trees/c0ea309ebe1a8d6461abb5aa5a5cc5773a5833f7",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/solanabr/skills/contents/src?ref=main",
+      "git": "https://api.github.com/repos/solanabr/skills/git/trees/c0ea309ebe1a8d6461abb5aa5a5cc5773a5833f7",
+      "html": "https://github.com/solanabr/skills/tree/main/src"
+    }
+  },
+  {
+    "name": "tsconfig.json",
+    "path": "tsconfig.json",
+    "sha": "824237a30003eb33579f3f095dba311ef90d9f70",
+    "size": 129,
+    "url": "https://api.github.com/repos/solanabr/skills/contents/tsconfig.json?ref=main",
+    "html_url": "https://github.com/solanabr/skills/blob/main/tsconfig.json",
+    "git_url": "https://api.github.com/repos/solanabr/skills/git/blobs/824237a30003eb33579f3f095dba311ef90d9f70",
+    "download_url": "https://raw.githubusercontent.com/solanabr/skills/main/tsconfig.json",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/solanabr/skills/contents/tsconfig.json?ref=main",
+      "git": "https://api.github.com/repos/solanabr/skills/git/blobs/824237a30003eb33579f3f095dba311ef90d9f70",
+      "html": "https://github.com/solanabr/skills/blob/main/tsconfig.json"
+    }
+  },
+  {
+    "name": "vercel.json",
+    "path": "vercel.json",
+    "sha": "b015d2d762eadc311739785d699424ee2caf82d5",
+    "size": 756,
+    "url": "https://api.github.com/repos/solanabr/skills/contents/vercel.json?ref=main",
+    "html_url": "https://github.com/solanabr/skills/blob/main/vercel.json",
+    "git_url": "https://api.github.com/repos/solanabr/skills/git/blobs/b015d2d762eadc311739785d699424ee2caf82d5",
+    "download_url": "https://raw.githubusercontent.com/solanabr/skills/main/vercel.json",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/solanabr/skills/contents/vercel.json?ref=main",
+      "git": "https://api.github.com/repos/solanabr/skills/git/blobs/b015d2d762eadc311739785d699424ee2caf82d5",
+      "html": "https://github.com/solanabr/skills/blob/main/vercel.json"
+    }
+  }
+]

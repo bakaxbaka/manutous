@@ -1,0 +1,194 @@
+[
+  {
+    "name": ".github",
+    "path": ".github",
+    "sha": "abfa0bd67833bddb891bfd79b03be07e814f0aa8",
+    "size": 0,
+    "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/contents/.github?ref=main",
+    "html_url": "https://github.com/bakaxbaka/solana-curriculum/tree/main/.github",
+    "git_url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/abfa0bd67833bddb891bfd79b03be07e814f0aa8",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/bakaxbaka/solana-curriculum/contents/.github?ref=main",
+      "git": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/abfa0bd67833bddb891bfd79b03be07e814f0aa8",
+      "html": "https://github.com/bakaxbaka/solana-curriculum/tree/main/.github"
+    }
+  },
+  {
+    "name": ".gitignore",
+    "path": ".gitignore",
+    "sha": "96fab4fed3424d27f8a5bc04d045afd56574a2d5",
+    "size": 399,
+    "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/contents/.gitignore?ref=main",
+    "html_url": "https://github.com/bakaxbaka/solana-curriculum/blob/main/.gitignore",
+    "git_url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/96fab4fed3424d27f8a5bc04d045afd56574a2d5",
+    "download_url": "https://raw.githubusercontent.com/bakaxbaka/solana-curriculum/main/.gitignore",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/bakaxbaka/solana-curriculum/contents/.gitignore?ref=main",
+      "git": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/96fab4fed3424d27f8a5bc04d045afd56574a2d5",
+      "html": "https://github.com/bakaxbaka/solana-curriculum/blob/main/.gitignore"
+    }
+  },
+  {
+    "name": ".npmrc",
+    "path": ".npmrc",
+    "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+    "size": 0,
+    "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/contents/.npmrc?ref=main",
+    "html_url": "https://github.com/bakaxbaka/solana-curriculum/blob/main/.npmrc",
+    "git_url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+    "download_url": "https://raw.githubusercontent.com/bakaxbaka/solana-curriculum/main/.npmrc",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/bakaxbaka/solana-curriculum/contents/.npmrc?ref=main",
+      "git": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "html": "https://github.com/bakaxbaka/solana-curriculum/blob/main/.npmrc"
+    }
+  },
+  {
+    "name": "README.md",
+    "path": "README.md",
+    "sha": "2263a24582ac367157a593bbe41b6176a3c44134",
+    "size": 1687,
+    "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/contents/README.md?ref=main",
+    "html_url": "https://github.com/bakaxbaka/solana-curriculum/blob/main/README.md",
+    "git_url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/2263a24582ac367157a593bbe41b6176a3c44134",
+    "download_url": "https://raw.githubusercontent.com/bakaxbaka/solana-curriculum/main/README.md",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/bakaxbaka/solana-curriculum/contents/README.md?ref=main",
+      "git": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/2263a24582ac367157a593bbe41b6176a3c44134",
+      "html": "https://github.com/bakaxbaka/solana-curriculum/blob/main/README.md"
+    }
+  },
+  {
+    "name": "Solana-rule",
+    "path": "Solana-rule",
+    "sha": "83372e32efce8aa5e8169849e6fa5ec0f7f8f236",
+    "size": 36564,
+    "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/contents/Solana-rule?ref=main",
+    "html_url": "https://github.com/bakaxbaka/solana-curriculum/blob/main/Solana-rule",
+    "git_url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/83372e32efce8aa5e8169849e6fa5ec0f7f8f236",
+    "download_url": "https://raw.githubusercontent.com/bakaxbaka/solana-curriculum/main/Solana-rule",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/bakaxbaka/solana-curriculum/contents/Solana-rule?ref=main",
+      "git": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/83372e32efce8aa5e8169849e6fa5ec0f7f8f236",
+      "html": "https://github.com/bakaxbaka/solana-curriculum/blob/main/Solana-rule"
+    }
+  },
+  {
+    "name": "audit",
+    "path": "audit",
+    "sha": "8011b5ed470aa2d0b2ffe651badfabf50214e58f",
+    "size": 0,
+    "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/contents/audit?ref=main",
+    "html_url": "https://github.com/bakaxbaka/solana-curriculum/tree/main/audit",
+    "git_url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/8011b5ed470aa2d0b2ffe651badfabf50214e58f",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/bakaxbaka/solana-curriculum/contents/audit?ref=main",
+      "git": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/8011b5ed470aa2d0b2ffe651badfabf50214e58f",
+      "html": "https://github.com/bakaxbaka/solana-curriculum/tree/main/audit"
+    }
+  },
+  {
+    "name": "courses",
+    "path": "courses",
+    "sha": "0c36caa89e59b0ce11dcc7e30edc09c926eede53",
+    "size": 0,
+    "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/contents/courses?ref=main",
+    "html_url": "https://github.com/bakaxbaka/solana-curriculum/tree/main/courses",
+    "git_url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/0c36caa89e59b0ce11dcc7e30edc09c926eede53",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/bakaxbaka/solana-curriculum/contents/courses?ref=main",
+      "git": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/0c36caa89e59b0ce11dcc7e30edc09c926eede53",
+      "html": "https://github.com/bakaxbaka/solana-curriculum/tree/main/courses"
+    }
+  },
+  {
+    "name": "package-lock.json",
+    "path": "package-lock.json",
+    "sha": "f9a157ff46f0a90166b2855d8bff2a9780aacea1",
+    "size": 158038,
+    "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/contents/package-lock.json?ref=main",
+    "html_url": "https://github.com/bakaxbaka/solana-curriculum/blob/main/package-lock.json",
+    "git_url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/f9a157ff46f0a90166b2855d8bff2a9780aacea1",
+    "download_url": "https://raw.githubusercontent.com/bakaxbaka/solana-curriculum/main/package-lock.json",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/bakaxbaka/solana-curriculum/contents/package-lock.json?ref=main",
+      "git": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/f9a157ff46f0a90166b2855d8bff2a9780aacea1",
+      "html": "https://github.com/bakaxbaka/solana-curriculum/blob/main/package-lock.json"
+    }
+  },
+  {
+    "name": "package.json",
+    "path": "package.json",
+    "sha": "7a30f09a12d9984d9537435e315e201f6f496229",
+    "size": 502,
+    "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/contents/package.json?ref=main",
+    "html_url": "https://github.com/bakaxbaka/solana-curriculum/blob/main/package.json",
+    "git_url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/7a30f09a12d9984d9537435e315e201f6f496229",
+    "download_url": "https://raw.githubusercontent.com/bakaxbaka/solana-curriculum/main/package.json",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/bakaxbaka/solana-curriculum/contents/package.json?ref=main",
+      "git": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/7a30f09a12d9984d9537435e315e201f6f496229",
+      "html": "https://github.com/bakaxbaka/solana-curriculum/blob/main/package.json"
+    }
+  },
+  {
+    "name": "packages",
+    "path": "packages",
+    "sha": "4a1375f75d0dc85db518522a837599882300576b",
+    "size": 0,
+    "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/contents/packages?ref=main",
+    "html_url": "https://github.com/bakaxbaka/solana-curriculum/tree/main/packages",
+    "git_url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/4a1375f75d0dc85db518522a837599882300576b",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/bakaxbaka/solana-curriculum/contents/packages?ref=main",
+      "git": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/trees/4a1375f75d0dc85db518522a837599882300576b",
+      "html": "https://github.com/bakaxbaka/solana-curriculum/tree/main/packages"
+    }
+  },
+  {
+    "name": "setup.sh",
+    "path": "setup.sh",
+    "sha": "20d34ef16564fcc01c16f61086bf141e28605383",
+    "size": 8425,
+    "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/contents/setup.sh?ref=main",
+    "html_url": "https://github.com/bakaxbaka/solana-curriculum/blob/main/setup.sh",
+    "git_url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/20d34ef16564fcc01c16f61086bf141e28605383",
+    "download_url": "https://raw.githubusercontent.com/bakaxbaka/solana-curriculum/main/setup.sh",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/bakaxbaka/solana-curriculum/contents/setup.sh?ref=main",
+      "git": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/20d34ef16564fcc01c16f61086bf141e28605383",
+      "html": "https://github.com/bakaxbaka/solana-curriculum/blob/main/setup.sh"
+    }
+  },
+  {
+    "name": "turbo.json",
+    "path": "turbo.json",
+    "sha": "d508947573f5271d4e44c7b304bc6e69f86640fd",
+    "size": 414,
+    "url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/contents/turbo.json?ref=main",
+    "html_url": "https://github.com/bakaxbaka/solana-curriculum/blob/main/turbo.json",
+    "git_url": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/d508947573f5271d4e44c7b304bc6e69f86640fd",
+    "download_url": "https://raw.githubusercontent.com/bakaxbaka/solana-curriculum/main/turbo.json",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/bakaxbaka/solana-curriculum/contents/turbo.json?ref=main",
+      "git": "https://api.github.com/repos/bakaxbaka/solana-curriculum/git/blobs/d508947573f5271d4e44c7b304bc6e69f86640fd",
+      "html": "https://github.com/bakaxbaka/solana-curriculum/blob/main/turbo.json"
+    }
+  }
+]

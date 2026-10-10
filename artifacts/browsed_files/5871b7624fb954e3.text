@@ -1,0 +1,212 @@
+```bash
+#!/usr/bin/env bash
+# setup.sh — Linux shell setup for Curriculum-Guided Solana Security Agent
+# Usage:  source ./setup.sh
+#         bash setup.sh --clone-only
+#         bash setup.sh --repos-only
+#         bash setup.sh --env-only
+set -euo pipefail
+REPO_URL="https://github.com/bakaxbaka/solana-curriculum.git"
+LOCAL_MIRROR="${SOLANA_CURRICULUM_PATH:-./solana-curriculum}"
+BRANCH="${SOLANA_CURRICULUM_BRANCH:-main}"
+REQUIRED_REPOS_DIR="${REQUIRED_REPOS_DIR:-./required-repos}"
+REQUIRED_REPOS=(
+  "coral-xyz/anchor|master|anchor"
+  "anza-xyz/agave|master|agave"
+  "solana-program/token-2022|main|token-2022"
+  "solana-program/token|main|token"
+  "solana-program/associated-token-account|main|ata"
+  "solana-developers/program-examples|main|program-examples"
+  "sannykim/solsec|master|solsec"
+  "slowmist/solana-smart-contract-security-best-practices|main|slowmist-solana-security"
+  "LiteSVM/litesvm|main|litesvm"
+)
+if [[ -t 1 ]]; then
+  GREEN='\033[0;32m'; YELLOW='\033[1;33m'; RED='\033[0;31m'; NC='\033[0m'
+else
+  GREEN=''; YELLOW=''; RED=''; NC=''
+fi
+log()  { echo -e "${GREEN}[curriculum]${NC} $*"; }
+warn() { echo -e "${YELLOW}[curriculum]${NC} $*"; }
+err()  { echo -e "${RED}[curriculum]${NC} $*" >&2; }
+clone_or_update_curriculum() {
+  if [[ -d "$LOCAL_MIRROR/.git" ]]; then
+    log "Updating curriculum at $LOCAL_MIRROR ..."
+    git -C "$LOCAL_MIRROR" fetch --quiet origin
+    git -C "$LOCAL_MIRROR" checkout --quiet "$BRANCH"
+    git -C "$LOCAL_MIRROR" pull --ff-only --quiet origin "$BRANCH" || {
+      warn "Fast-forward failed – leaving working tree as-is."
+    }
+  else
+    log "Cloning curriculum → $LOCAL_MIRROR ..."
+    git clone --depth 1 --branch "$BRANCH" "$REPO_URL" "$LOCAL_MIRROR"
+  fi
+  log "Curriculum ready: $(realpath "$LOCAL_MIRROR")"
+}
+clone_or_update_required_repos() {
+  mkdir -p "$REQUIRED_REPOS_DIR"
+  log "Required repos directory: $(realpath "$REQUIRED_REPOS_DIR")"
+  for entry in "${REQUIRED_REPOS[@]}"; do
+    IFS='|' read -r full_name branch short_name <<< "$entry"
+    local target="$REQUIRED_REPOS_DIR/$short_name"
+    local url="https://github.com/${full_name}.git"
+    if [[ -d "$target/.git" ]]; then
+      log "Updating $short_name ..."
+      git -C "$target" fetch --quiet origin
+      git -C "$target" checkout --quiet "$branch" 2>/dev/null || true
+      git -C "$target" pull --ff-only --quiet origin "$branch" 2>/dev/null || {
+        warn "  $short_name: could not fast-forward (local changes?)"
+      }
+    else
+      log "Cloning $full_name → $short_name ..."
+      if ! git clone --depth 1 --branch "$branch" "$url" "$target" 2>/dev/null; then
+        warn "  branch $branch failed, trying default branch..."
+        git clone --depth 1 "$url" "$target"
+      fi
+    fi
+  done
+}
+export_env() {
+  export SOLANA_CURRICULUM_ROOT="$(realpath "$LOCAL_MIRROR")"
+  export SOLANA_CURRICULUM_COURSES="$SOLANA_CURRICULUM_ROOT/courses"
+  export SOLANA_CURRICULUM_PACKAGES="$SOLANA_CURRICULUM_ROOT/packages"
+  export SOLANA_CURRICULUM_AUDIT="$SOLANA_CURRICULUM_ROOT/audit"
+  export CURRICULUM_ANCHOR="$SOLANA_CURRICULUM_COURSES/anchor-and-programs"
+  export CURRICULUM_TOKENS="$SOLANA_CURRICULUM_COURSES/spl-tokens-2022-and-extensions"
+  export CURRICULUM_WEB="$SOLANA_CURRICULUM_COURSES/web-for-solana-development-101"
+  export CURRICULUM_BASICS="$SOLANA_CURRICULUM_COURSES/blockchain-basics"
+  export CURRICULUM_RUST="$SOLANA_CURRICULUM_COURSES/rust-basics-for-solana-development"
+  export CURRICULUM_STARTER="$SOLANA_CURRICULUM_COURSES/web3-solana-starter-pack"
+  export CURRICULUM_DEFI="$SOLANA_CURRICULUM_COURSES/defi-on-jupiter"
+  export REQUIRED_REPOS_ROOT="$(realpath "$REQUIRED_REPOS_DIR")"
+  export REPO_ANCHOR="$REQUIRED_REPOS_ROOT/anchor"
+  export REPO_AGAVE="$REQUIRED_REPOS_ROOT/agave"
+  export REPO_TOKEN2022="$REQUIRED_REPOS_ROOT/token-2022"
+  export REPO_TOKEN="$REQUIRED_REPOS_ROOT/token"
+  export REPO_PROGRAM_EXAMPLES="$REQUIRED_REPOS_ROOT/program-examples"
+  export REPO_SOLSEC="$REQUIRED_REPOS_ROOT/solsec"
+  export REPO_SLOWMIST="$REQUIRED_REPOS_ROOT/slowmist-solana-security"
+  export REPO_LITESVM="$REQUIRED_REPOS_ROOT/litesvm"
+  export PATH="$SOLANA_CURRICULUM_ROOT/scripts:${PATH:-}"
+  log "Environment exported."
+  log "  SOLANA_CURRICULUM_ROOT = $SOLANA_CURRICULUM_ROOT"
+  log "  REQUIRED_REPOS_ROOT    = $REQUIRED_REPOS_ROOT"
+}
+curriculum_open() {
+  local path="$1"
+  if [[ -f "$SOLANA_CURRICULUM_ROOT/$path" ]]; then
+    ${EDITOR:-less} "$SOLANA_CURRICULUM_ROOT/$path"
+  elif [[ -f "$path" ]]; then
+    ${EDITOR:-less} "$path"
+  else
+    err "File not found: $path"
+    return 1
+  fi
+}
+curriculum_find() {
+  local query="${1:-}"
+  if [[ -z "$query" ]]; then
+    find "$SOLANA_CURRICULUM_COURSES" \( -name 'week-*.md' -o -name '*.md' \) | sort
+  else
+    grep -ril --include='*.md' "$query" "$SOLANA_CURRICULUM_COURSES" || true
+  fi
+}
+curriculum_cite() {
+  local rel="$1"
+  echo "courses/${rel#courses/}"
+}
+curriculum_preflight() {
+  local file="$1"
+  local course_dir
+  course_dir=$(dirname "$(dirname "$file")")
+  echo "=== Pre-flight checklist (Mode D) ==="
+  [[ -f "$file" ]] && echo "[ ] File exists" || echo "[!] File does not exist yet (new)"
+  if [[ "$(basename "$file")" =~ ^week-[0-9]+-.+\.md$ ]] || \
+     [[ "$(basename "$(dirname "$file")")" == "web3-solana-starter-pack" ]]; then
+    echo "[✓] Naming convention OK"
+  else
+    echo "[!] Naming may violate week-N-slug.md"
+  fi
+  local plan="$course_dir/course-plan.md"
+  [[ -f "$plan" ]] && echo "[✓] Parent course-plan.md present" || echo "[!] Missing course-plan.md – update it too"
+  if [[ "$file" == *anchor-and-programs* ]]; then
+    warn "This course still has 9 known broken links (weeks 4,6,7,9,10,11,12)."
+    warn "Verify every external URL before committing."
+  fi
+  if [[ "$file" == *defi-on-jupiter* ]]; then
+    warn "defi-on-jupiter is DRAFT – any new content MUST be labeled Draft."
+  fi
+  echo "Remember: Learning Objectives are mandatory; cite exact relative paths;"
+  echo "          never invent weeks that do not exist."
+}
+curriculum_route() {
+  cat <<'EOF'
+Decision tree (always run first):
+  CONSENSUS / PoH / BFT / L1          → blockchain-basics
+  RUST ownership / async / testing    → rust-basics-for-solana-development
+  ANCHOR / PDA / CPI / upgrade / multi→ anchor-and-programs   ★ PRIMARY
+  TOKEN-2022 / hooks / fees / conf.   → spl-tokens-2022-and-extensions
+  CLIENT / wallet / signing / RPC     → web-for-solana-development-101
+  BEGINNER plain-English              → web3-solana-starter-pack
+  JUPITER / DEX                       → defi-on-jupiter (DRAFT only)
+  AUTHORING                           → Mode D + preflight
+EOF
+}
+required_repos_status() {
+  echo "Required companion repositories:"
+  for entry in "${REQUIRED_REPOS[@]}"; do
+    IFS='|' read -r full_name branch short_name <<< "$entry"
+    local target="$REQUIRED_REPOS_DIR/$short_name"
+    if [[ -d "$target/.git" ]]; then
+      local rev
+      rev=$(git -C "$target" rev-parse --short HEAD 2>/dev/null || echo "?")
+      printf "  %-22s  %s  (%s)\n" "$short_name" "$(realpath "$target")" "$rev"
+    else
+      printf "  %-22s  MISSING\n" "$short_name"
+    fi
+  done
+}
+install_tooling() {
+  command -v bun    >/dev/null 2>&1 && log "Bun: $(bun --version)"    || warn "Bun not found"
+  command -v solana >/dev/null 2>&1 && log "Solana CLI present"       || warn "Solana CLI not found"
+  command -v anchor >/dev/null 2>&1 && log "Anchor present"           || warn "Anchor CLI not found (pin 0.31.1 recommended)"
+}
+main() {
+  local mode="${1:-full}"
+  case "$mode" in
+    --clone-only)
+      clone_or_update_curriculum
+      clone_or_update_required_repos
+      ;;
+    --env-only)
+      export_env
+      ;;
+    --repos-only)
+      clone_or_update_required_repos
+      ;;
+    full|*)
+      clone_or_update_curriculum
+      clone_or_update_required_repos
+      export_env
+      install_tooling
+      log ""
+      log "Ready. Useful commands:"
+      log "  curriculum_route"
+      log "  curriculum_find <kw>"
+      log "  curriculum_open <path>"
+      log "  curriculum_preflight <f>"
+      log "  curriculum_cite <path>"
+      log "  required_repos_status"
+      log ""
+      log "Always start a task with: curriculum_route"
+      log "Always cite real paths from \$SOLANA_CURRICULUM_ROOT"
+      log "Source code for audits lives under \$REQUIRED_REPOS_ROOT"
+      ;;
+  esac
+}
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+  main "$@"
+else
+  main full
+fi
+```

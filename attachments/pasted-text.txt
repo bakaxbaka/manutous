@@ -1,0 +1,1339 @@
+no,forget before prompts and create a power system ruloe for 1. High‑Level Architecture – “What runs and why”
++-------------------------------------------------------------------+
+|                         USER (CLI / API)                         |
++-------------------------------+-----------------------------------+
+                                |
+                                v
++-------------------------------+-----------------------------------+
+|   1️⃣ Request Classifier (pure function)                         |
++-------------------------------+-----------------------------------+
+                                |
+                                v
++-------------------------------+-----------------------------------+
+|   2️⃣ Rule Engine (rules.yaml → ordered matches)                |
++-------------------------------+-----------------------------------+
+                                |
+                                v
++-------------------------------+-----------------------------------+
+|   3️⃣ Mandatory‑Policy Gate (cross‑cutting controls)            |
++-------------------------------+-----------------------------------+
+                                |
+                                v
++-------------------------------+-----------------------------------+
+|   4️⃣ Skill Loader / Registry (dynamic import, pinning)          |
++-------------------------------+-----------------------------------+
+                                |
+                                v
++-------------------------------+-----------------------------------+
+|   5️⃣ Workflow Orchestrator (primary + secondary skills)       |
++-------------------------------+-----------------------------------+
+                                |
+                                v
++-------------------------------+-----------------------------------+
+|   6️⃣ Curriculum / Evidence Adapter (resolve lessons, lock‑file) |
++-------------------------------+-----------------------------------+
+                                |
+                                v
++-------------------------------+-----------------------------------+
+|   7️⃣ Safe Executor (no auto‑sign, no secrets, dry‑run first)   |
++-------------------------------+-----------------------------------+
+                                |
+                                v
++-------------------------------+-----------------------------------+
+|   8️⃣ Evidence Log (evidence.json – reproducible provenance)     |
++---------------------------------------------------------------------+
+Every step is a pure, deterministic function (except the final executor, which may invoke external tools—but only after the policy gate has approved the plan).
+
+2. Skill Registry – Metadata‑driven, self‑describing
+2.1. Add a skill.yaml to every skill directory
+solanabr/
+└─ skills/
+   ├─ auditor-skill/
+   │   ├─ skill.py
+   │   └─ skill.yaml
+   ├─ solana-dev/
+   │   ├─ skill.py
+   │   └─ skill.yaml
+   └─ reverse-engineering/
+       ├─ skill.py
+       └─ skill.yaml
+skill.yaml schema (YAML – validated with pydantic in skill_loader.py)
+
+name: auditor-skill                     # must be unique
+version: "1.0.0"
+description: |
+  Security‑audit workflow for Anchor programs.
+domains:
+  - smart‑contract
+  - token‑2022
+languages:
+  - rust
+entrypoint: skill.py                    # relative to this dir
+mandatory_gates:
+  - no_secrets
+  - no_implicit_tx
+  - pin_source
+  - treat_untrusted
+  - progressive_load
+  - require_evidence
+  - verify_existence
+evidence_requirements:
+  - source_location
+  - guard_analysis
+  - impact_assessment
+  - unknowns
+Why?
+The router can verify that the skill declares compliance with all eight mandatory gates before even importing its code. If a skill forgets no_secrets the loader raises PolicyViolationError and the rule is discarded.
+
+2.2. Dynamic Loader (router/skill_loader.py)
+# router/skill_loader.py -------------------------------------------------
+import importlib
+import pathlib
+import yaml
+from typing import Tuple, Dict, Any
+
+REGISTRY_ROOT = pathlib.Path(__file__).parents[1] / "solanabr" / "skills"
+
+class SkillLoadError(RuntimeError): pass
+class PolicyViolationError(RuntimeError): pass
+
+def _read_descriptor(skill_dir: pathlib.Path) -> Dict[str, Any]:
+    desc_path = skill_dir / "skill.yaml"
+    if not desc_path.is_file():
+        raise SkillLoadError(f"Missing skill.yaml in {skill_dir}")
+    return yaml.safe_load(desc_path.read_text())
+
+def _verify_mandatory_gates(descriptor: Dict[str, Any]) -> None:
+    required = {
+        "no_secrets",
+        "no_implicit_tx",
+        "pin_source",
+        "treat_untrusted",
+        "progressive_load",
+        "require_evidence",
+        "verify_existence",
+    }
+    missing = required - set(descriptor.get("mandatory_gates", []))
+    if missing:
+        raise PolicyViolationError(
+            f"Skill {descriptor.get('name')} lacks mandatory gates {missing}"
+        )
+
+def load_skill(name: str) -> Tuple[Any, Dict[str, Any]]:
+    """
+    Dynamically import the skill module and return (module, descriptor).
+    Raises SkillLoadError / PolicyViolationError on failure.
+    """
+    for skill_dir in REGISTRY_ROOT.iterdir():
+        if not skill_dir.is_dir():
+            continue
+        desc = _read_descriptor(skill_dir)
+        if desc.get("name") == name:
+            _verify_mandatory_gates(desc)
+            entrypoint = desc.get("entrypoint", "skill.py")
+            module_name = f"solanabr.skills.{skill_dir.name}.{entrypoint[:-3]}"
+            try:
+                mod = importlib.import_module(module_name)
+            except Exception as exc:
+                raise SkillLoadError(
+                    f"Import of {module_name} failed: {exc}"
+                ) from exc
+            return mod, desc
+    raise SkillLoadError(f"Skill {name!r} not found in registry")
+# -------------------------------------------------------------------------
+Only the primary skill and the explicitly‑listed secondary skills are loaded. All others stay on disk, never imported.
+
+3. Routing Rules – A DSL (YAML) instead of a flat rules.json
+3.1. router/rules.yaml (example)
+# router/rules.yaml ---------------------------------------------------------
+# The rules are ordered by an explicit `priority`. Higher numbers win.
+- id: AUDIT_TOKEN_2022
+  priority: 200
+  intent: security_audit
+  domains: [token-2022, spl-token]
+  languages: [rust]
+  primary_skill: auditor-skill
+  secondary_skills: [solana-dev]
+  curriculum:
+    - spl-tokens-2022-and-extensions
+  evidence:
+    - repo: https://github.com/solana-labs/token-list
+      commit: "3f2a1e8c..."
+    - spec: Token-2022-Program-Interface.pdf
+  gates:
+    - require_evidence
+    - no_secrets
+    - pin_source
+
+- id: ANCHOR_DEVELOPMENT
+  priority: 150
+  intent: implementation
+  domains: [anchor]
+  languages: [rust, typescript]
+  primary_skill: solana-dev
+  secondary_skills: []
+  curriculum:
+    - anchor-and-programs
+  evidence:
+    - repo: https://github.com/coral-xyz/anchor
+      commit: "f2c0d12..."
+  gates:
+    - no_secrets
+    - pin_source
+
+# …additional rules for reverse‑engineering, SIMD, JUPITER, etc.
+# -------------------------------------------------------------------------
+Benefits
+
+Compound predicates (intent + domains + languages) – no fragile keyword matching.
+Explicit gate list per rule – the router knows exactly which checks to apply.
+Curriculum & evidence entries are part of the rule, not looked up later.
+3.2. Rule Engine (router/rule_engine.py)
+# router/rule_engine.py -------------------------------------------------------
+import yaml
+import fnmatch
+from typing import List, Dict, Any
+
+class RuleEngine:
+    def __init__(self, path: str = "router/rules.yaml"):
+        self.rules: List[Dict[str, Any]] = yaml.safe_load(open(path))
+
+    def match(self, classification: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """
+        Return a list of matching rules ordered by descending priority.
+        """
+        matches = [r for r in self.rules if self._matches(r, classification)]
+        matches.sort(key=lambda r: r.get("priority", 0), reverse=True)
+        return matches
+
+    @staticmethod
+    def _matches(rule: Dict[str, Any], cls: Dict[str, Any]) -> bool:
+        # intent: exact match
+        if rule.get("intent") and cls.get("intent") != rule["intent"]:
+            return False
+
+        # domain: any rule domain matches any request domain
+        if rule.get("domains"):
+            if not any(
+                any(fnmatch.fnmatch(d, pattern) for pattern in rule["domains"])
+                for d in cls.get("domains", [])
+            ):
+                return False
+
+        # language: same idea
+        if rule.get("languages"):
+            if not any(
+                any(fnmatch.fnmatch(l, pat) for pat in rule["languages"])
+                for l in cls.get("languages", [])
+            ):
+                return False
+
+        return True
+# -------------------------------------------------------------------------
+The classifier (see Section 4) produces a dict like:
+
+{
+    "intent": "security_audit",
+    "domains": ["token-2022"],
+    "languages": ["rust"]
+}
+which the rule engine then matches.
+
+4. Request Classifier – Light‑weight, replaceable
+Right now we ship a regex‑based classifier that works for all starter examples. When you are ready, swap it for an LLM‑based one without touching the rest of the pipeline.
+
+# router/classifier.py -------------------------------------------------------
+import re
+from typing import Dict, List
+
+def classify(raw: str) -> Dict[str, any]:
+    # Intent
+    intent = "generic"
+    if re.search(r"\baudit\b", raw, re.I):
+        intent = "security_audit"
+    elif re.search(r"\bimplement\b", raw, re.I):
+        intent = "implementation"
+    elif re.search(r"\binspect\b|check\b", raw, re.I):
+        intent = "analysis"
+
+    # Domains (simple keyword map – extend as you add new domains)
+    domain_map = {
+        "anchor": "anchor",
+        "token-2022": "token-2022",
+        "spl-token": "spl-token",
+        "simd": "simd",
+        "poh": "consensus",
+        "tower bft": "consensus",
+        "agave": "runtime",
+        "jupiter": "dex",
+    }
+    domains: List[str] = [
+        d for kw, d in domain_map.items() if re.search(kw, raw, re.I)
+    ]
+
+    # Languages
+    langs = []
+    if re.search(r"\brust\b", raw, re.I):
+        langs.append("rust")
+    if re.search(r"\btypescript\b|\bjs\b|\bjavascript\b", raw, re.I):
+        langs.append("typescript")
+
+    return {
+        "intent": intent,
+        "domains": domains,
+        "languages": langs,
+    }
+# -------------------------------------------------------------------------
+Swap‑in: create router/classifier_llm.py that implements classify with an LLM prompt, and change one import line in router_cli.py.
+
+5. Mandatory‑Policy Gate – Cross‑cutting safety controls
+All rules carry a gates list. The gate runner checks the runtime context that the router builds before any skill code runs.
+
+# router/policy_gate.py ------------------------------------------------------
+MANDATORY = {
+    "no_secrets": lambda ctx: not ctx.get("has_secrets", False),
+    "no_implicit_tx": lambda ctx: not ctx.get("implicit_tx", False),
+    "pin_source": lambda ctx: ctx.get("source_pinned", False),
+    "treat_untrusted": lambda ctx: not ctx.get("trusted_data", False),
+    "progressive_load": lambda ctx: ctx.get("progressive_loaded", False),
+    "require_evidence": lambda ctx: bool(ctx.get("evidence", [])),
+    "verify_existence": lambda ctx: ctx.get("all_paths_exist", False),
+}
+
+def enforce(workflow: dict, ctx: dict) -> None:
+    """
+    Raise RuntimeError if any declared gate fails.
+    """
+    for gate in workflow.get("gates", []):
+        checker = MANDATORY.get(gate)
+        if checker is None:
+            raise RuntimeError(f"Unknown gate {gate}")
+        if not checker(ctx):
+            raise RuntimeError(
+                f"Gate {gate} failed – see policy documentation"
+            )
+# -------------------------------------------------------------------------
+Constructing the context (called right after the rule engine decides on the route):
+
+def build_policy_ctx(workflow):
+    # 1️⃣ Evidence existence
+    evidence_ok = bool(workflow.get("evidence"))
+    # 2️⃣ Curriculum existence
+    cur_paths = workflow.get("curriculum", [])
+    paths_exist = all(pathlib.Path(p).exists() for p in cur_paths)
+    # 3️⃣ Progressive load – true because we load *only* the skills we need
+    # 4️⃣ No secrets / implicit tx – we keep these flags false in the core engine
+    return {
+        "has_secrets": False,
+        "implicit_tx": False,
+        "source_pinned": evidence_ok,
+        "trusted_data": False,
+        "progressive_loaded": True,
+        "evidence": workflow.get("evidence", []),
+        "all_paths_exist": paths_exist,
+    }
+If any gate fails the router aborts before any skill code is executed, guaranteeing safety.
+
+6. Curriculum & Evidence Adapter – Concrete, reproducible, lock‑file based
+6.1. Lock‑file (solana_curriculum.lock)
+# format: <repo_url>|<local_path>|<commit_sha>|<tree_hash>|<fallback_flag>
+https://github.com/solana-labs/anchor.git|repos/anchor|a1b2c3d4e5f6|e1f2d3c4b5a6|false
+https://github.com/solana-labs/agave.git|repos/agave|7f8e9d0c|a5b6c7d8e9|false
+Generated by router/generate_lockfile.py (see Section 7).
+
+When the router needs a repo for evidence it never uses git pull; it checks the lock‑file, git checkout <commit> and verifies the tree hash. If the lock‑file entry has fallback:true, the router aborts unless the user passed --allow-fallback.
+
+6.2. Curriculum verification (router/curriculum_adapter.py)
+# router/curriculum_adapter.py ---------------------------------------------
+import pathlib
+from typing import List, Tuple
+
+def resolve_paths(paths: List[str]) -> List[Tuple[str, str]]:
+    """
+    Returns a list of (path, status) where status ∈ {VERIFIED, DRAFT, MISSING}.
+    """
+    out = []
+    for p in paths:
+        real_path = pathlib.Path(p).expanduser().resolve()
+        if not real_path.exists():
+            out.append((str(real_path), "MISSING"))
+        elif "draft" in real_path.name.lower():
+            out.append((str(real_path), "DRAFT"))
+        else:
+            out.append((str(real_path), "VERIFIED"))
+    return out
+# -------------------------------------------------------------------------
+The router calls this adapter after rule‑engine matching; the returned status is stored in the evidence.log.
+
+7. Evidence Tracker – Immutable provenance for every run
+7.1. JSON schema (router/evidence_tracker.py)
+# router/evidence_tracker.py -----------------------------------------------
+import json, uuid, time, pathlib
+from typing import List, Dict, Any
+
+class EvidenceLog:
+    def __init__(self, run_id: str = None):
+        self.run_id = run_id or str(uuid.uuid4())
+        self.timestamp = time.time()
+        self.request: str = ""
+        self.primary_skill: str = ""
+        self.secondary_skills: List[str] = []
+        self.revisions: List[Dict[str, Any]] = []            # repo, commit, hash
+        self.curriculum: List[Dict[str, str]] = []          # path, status
+        self.unknowns: List[str] = []                      # filled by skill if needed
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "run_id": self.run_id,
+            "timestamp": self.timestamp,
+            "request": self.request,
+            "primary_skill": self.primary_skill,
+            "secondary_skills": self.secondary_skills,
+            "revisions": self.revisions,
+            "curriculum": self.curriculum,
+            "unknowns": self.unknowns,
+        }
+
+    def save(self, directory: str = "."):
+        out_path = pathlib.Path(directory) / "evidence.json"
+        out_path.write_text(json.dumps(self.to_dict(), indent=2), encoding="utf-8")
+# -------------------------------------------------------------------------
+7.2. Populating the log (in router_cli.py)
+from router.evidence_tracker import EvidenceLog
+from router.curriculum_adapter import resolve_paths
+
+def build_evidence(workflow, loaded_skills):
+    ev = EvidenceLog()
+    ev.request = workflow["request"]
+    ev.primary_skill = loaded_skills["primary"]["meta"]["name"]
+    ev.secondary_skills = [
+        s["meta"]["name"] for s in loaded_skills.get("secondary", [])
+    ]
+
+    # -----------------------------------------------------------------
+    # Revisions (evidence entries defined in the rule)
+    # -----------------------------------------------------------------
+    ev.revisions = [
+        {
+            "repo": ev_entry["repo"],
+            "commit": ev_entry["commit"],
+            "tree_hash": get_tree_hash(ev_entry["repo"], ev_entry["commit"]),
+        }
+        for ev_entry in workflow.get("evidence", [])
+    ]
+
+    # -----------------------------------------------------------------
+    # Curriculum status
+    # -----------------------------------------------------------------
+    ev.curriculum = [{"path": p, "status": s} for p, s in resolve_paths(workflow.get("curriculum", []))]
+
+    # -----------------------------------------------------------------
+    ev.save()
+    return ev
+get_tree_hash(repo_path, commit) is a tiny helper that runs:
+
+git -C <repo_path> checkout <commit> \
+ && git ls-tree -r <commit> | sha256sum | cut -d' ' -f1
+All evidence is pinned to a specific commit and to a deterministic tree hash, guaranteeing reproducibility.
+
+8. setup.sh – Split, lock‑file, safe path‑verification
+8.1. New file layout
+setup/
+├─ setup_env.sh      # only sets environment variables
+├─ setup_repo.sh     # clones / checks out repos → lockfile
+├─ generate_lockfile.py
+└─ setup.sh          # tiny dispatcher (source‑friendly)
+8.2. setup_env.sh (safe to source)
+#!/usr/bin/env bash
+# ---------------------------------------------------------------
+# Only export environment variables – never perform git ops.
+# ---------------------------------------------------------------
+export SOLANA_HOME="${HOME}/.solana"
+export CURRICULUM_ROOT="${PWD}/solana-curriculum"
+export PATH="${SOLANA_HOME}/bin:${PATH}"
+# Export today’s curriculum hints – but **do not** check existence here.
+export CURRICULUM_STARTER="${CURRICULUM_ROOT}/starter"
+export CURRICULUM_DEFI="${CURRICULUM_ROOT}/defi-on-jupiter"
+# End of env file – callers can now inspect the vars safely.
+8.3. setup_repo.sh (explicit repo handling)
+#!/usr/bin/env bash
+set -euo pipefail
+LOCKFILE="${PWD}/solana_curriculum.lock"
+
+# Helper to read a line from the lockfile
+lookup_repo() {
+    local url=$1
+    grep -F "${url}" "$LOCKFILE" | head -n1 | cut -d'|' -f2-4
+}
+
+clone_or_checkout() {
+    local url=$1 dest=$2 expected_sha=$3 fallback_allowed=$4
+
+    if [[ ! -d "$dest/.git" ]]; then
+        echo "[INFO] Cloning $url → $dest"
+        git clone "$url" "$dest"
+    fi
+    pushd "$dest" >/dev/null
+    git fetch --all
+
+    if git rev-parse --verify "$expected_sha" >/dev/null 2>&1; then
+        git checkout "$expected_sha"
+        echo "[OK] Checked out exact revision $expected_sha"
+    else
+        if [[ "$fallback_allowed" != "true" ]]; then
+            echo "[ERROR] Expected commit $expected_sha missing and fallback disabled" >&2
+            exit 1
+        fi
+        echo "[WARN] Commit $expected_sha not found – staying on current $(git rev-parse --abbrev-ref HEAD)"
+    fi
+    popd >/dev/null
+}
+
+# ---- REPOSITORIES ------------------------------------------------
+# Example for Anchor – the lockfile must contain the exact commit.
+read -r anchor_path anchor_sha anchor_hash <<<$(lookup_repo "https://github.com/coral-xyz/anchor.git")
+clone_or_checkout "https://github.com/coral-xyz/anchor.git" "$anchor_path" "$anchor_sha" "${ALLOW_FALLBACK:-false}"
+
+# Add similar blocks for Agave, Token‑2022, Spl‑Token, etc.
+# ---------------------------------------------------------------
+8.4. generate_lockfile.py (one‑off or --update-lock)
+#!/usr/bin/env python3
+"""
+Generate solana_curriculum.lock – a deterministic list of repos+commits.
+Usage: python generate_lockfile.py   # writes lockfile in cwd
+"""
+import pathlib, subprocess, json, sys
+
+LOCKFILE = pathlib.Path("solana_curriculum.lock")
+REPOS = [
+    # (url, local_path)
+    ("https://github.com/coral-xyz/anchor.git", "repos/anchor"),
+    ("https://github.com/solana-labs/agave.git", "repos/agave"),
+    ("https://github.com/solana-labs/token-list.git", "repos/token-list"),
+]
+
+def git_commit_hash(path):
+    out = subprocess.check_output(["git", "-C", str(path), "rev-parse", "HEAD"])
+    return out.decode().strip()
+
+def git_tree_hash(path, commit):
+    out = subprocess.check_output(
+        ["git", "-C", str(path), "ls-tree", "-r", commit]
+    )
+    return subprocess.check_output(["sha256sum"], input=out).decode().split()[0]
+
+def main():
+    lines = []
+    for url, local in REPOS:
+        p = pathlib.Path(local)
+        if not p.is_dir():
+            print(f"[WARN] {local} not cloned – skipping", file=sys.stderr)
+            continue
+        commit = git_commit_hash(p)
+        tree_hash = git_tree_hash(p, commit)
+        lines.append(f"{url}|{local}|{commit}|{tree_hash}|false")
+    LOCKFILE.write_text("\n".join(lines) + "\n")
+    print(f"[INFO] Lockfile written to {LOCKFILE}")
+
+if __name__ == "__main__":
+    main()
+8.5. Dispatcher (setup.sh)
+#!/usr/bin/env bash
+# ---------------------------------------------------------------
+# Dispatcher – can be sourced or executed.
+# ---------------------------------------------------------------
+if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
+    # Sourced – only environment setup, honor args
+    source "$(dirname "${BASH_SOURCE[0]}")/setup_env.sh" "$@"
+else
+    # Executed – full setup (env + repo)
+    source "$(dirname "${BASH_SOURCE[0]}")/setup_env.sh"
+    exec "$(dirname "${BASH_SOURCE[0]}")/setup_repo.sh" "$@"
+fi
+Result: source ./setup.sh --env-only never runs any git commands; ./setup.sh (executed) performs cloning/check‑outs using the lockfile.
+
+9. End‑to‑End CLI (router_cli.py)
+#!/usr/bin/env python3
+# router_cli.py ---------------------------------------------------------
+import argparse, json, sys
+from pathlib import Path
+
+from router.classifier import classify
+from router.rule_engine import RuleEngine
+from router.policy_gate import enforce
+from router.skill_loader import load_skill
+from router.evidence_tracker import EvidenceLog
+from router.curriculum_adapter import resolve_paths
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Solana Skill Decision Engine – deterministic routing + safety gates"
+    )
+    parser.add_argument("prompt", help="Free‑form user request")
+    parser.add_argument("--json", action="store_true", help="Emit full JSON output")
+    parser.add_argument("--dry-run", action="store_true", help="Only classify & route – do not load any skill")
+    parser.add_argument("--allow-fallback", action="store_true", help="Accept repository fallback branches")
+    args = parser.parse_args()
+
+    # -----------------------------------------------------------------
+    # 1️⃣ Classification
+    # -----------------------------------------------------------------
+    classification = classify(args.prompt)
+
+    # -----------------------------------------------------------------
+    # 2️⃣ Match rules
+    # -----------------------------------------------------------------
+    engine = RuleEngine()
+    matches = engine.match(classification)
+    if not matches:
+        sys.exit("[ERROR] No routing rule matches the request")
+
+    # Primary rule = highest priority
+    primary_rule = matches[0]
+
+    # -----------------------------------------------------------------
+    # 3️⃣ Build a deterministic workflow descriptor
+    # -----------------------------------------------------------------
+    workflow = {
+        "request": args.prompt,
+        "classification": classification,
+        "primary_rule": primary_rule,
+        "secondary_rules": matches[1:],
+        # copy shortcut lists for the next stages
+        "gates": primary_rule.get("gates", []),
+        "curriculum": primary_rule.get("curriculum", []),
+        "evidence": primary_rule.get("evidence", []),
+    }
+
+    if args.dry_run:
+        print(json.dumps(workflow, indent=2))
+        return
+
+    # -----------------------------------------------------------------
+    # 4️⃣ Policy gate – enforce all mandatory controls
+    # -----------------------------------------------------------------
+    ctx = {
+        "has_secrets": False,
+        "implicit_tx": False,
+        "source_pinned": bool(workflow["evidence"]),
+        "trusted_data": False,
+        "progressive_loaded": True,          # we load only needed modules
+        "evidence": workflow["evidence"],
+        "all_paths_exist": all(Path(p).exists() for p in workflow["curriculum"]),
+    }
+    enforce(workflow, ctx)
+
+    # -----------------------------------------------------------------
+    # 5️⃣ Load primary + secondary skills (dynamic import)
+    # -----------------------------------------------------------------
+    primary_mod, primary_meta = load_skill(primary_rule["primary_skill"])
+    secondary_loaded = []
+    for sec in primary_rule.get("secondary_skills", []):
+        try:
+            mod, meta = load_skill(sec)
+            secondary_loaded.append({"module": mod, "meta": meta, "name": sec})
+        except Exception as e:
+            # Secondary failure is non‑fatal – just log a warning
+            print(f"[WARN] Secondary skill {sec} could not be loaded: {e}", file=sys.stderr)
+
+    # -----------------------------------------------------------------
+    # 6️⃣ Evidence log
+    # -----------------------------------------------------------------
+    ev = EvidenceLog()
+    ev.request = args.prompt
+    ev.primary_skill = primary_meta["name"]
+    ev.secondary_skills = [s["meta"]["name"] for s in secondary_loaded]
+    ev.revisions = [
+        {
+            "repo": ev_entry["repo"],
+            "commit": ev_entry["commit"],
+            "tree_hash": ev_entry.get("tree_hash", "unknown"),
+        }
+        for ev_entry in workflow["evidence"]
+    ]
+    ev.curriculum = [{"path": p, "status": s} for p, s in resolve_paths(workflow["curriculum"])]
+    ev.save()
+
+    # -----------------------------------------------------------------
+    # 7️⃣ Run the primary skill (the skill decides what to do)
+    # -----------------------------------------------------------------
+    # All skill modules must expose a `run(workflow, evidence_log)` entry point.
+    # The call is wrapped in a try/except that prints a friendly JSON error.
+    try:
+        primary_mod.run(workflow, ev)   # <-- skill‑specific logic lives here
+    except Exception as exc:
+        err = {"error": "skill_failure", "message": str(exc), "workflow": workflow}
+        print(json.dumps(err, indent=2), file=sys.stderr)
+        sys.exit(1)
+
+    # -----------------------------------------------------------------
+    # 8️⃣ Final output
+    # -----------------------------------------------------------------
+    if args.json:
+        out = {"workflow": workflow, "evidence": ev.to_dict()}
+        print(json.dumps(out, indent=2))
+    else:
+        print(f"✅ Primary skill: {primary_meta['name']}")
+        if secondary_loaded:
+            secs = ", ".join(s["meta"]["name"] for s in secondary_loaded)
+            print(f"🔧 Secondary skills loaded: {secs}")
+        print(f"📚 Curriculum files: {', '.join(workflow['curriculum'])}")
+        print("🗂 Evidence recorded in evidence.json")
+        print("🛡 All mandatory gates passed – you may now safely invoke the skill.")
+# -------------------------------------------------------------------------
+if __name__ == "__main__":
+    main()
+What the skill module must provide
+
+# Example: solanabr/skills/auditor-skill/skill.py
+def run(workflow: dict, evidence):
+    """
+    Minimal stub – real implementation lives in this module.
+    The function may:
+      * read source files from `evidence.revisions`
+      * run local tests, static analysis, etc.
+      * **never** sign/send a transaction without prompting the user.
+    """
+    print("[INFO] Auditor skill started")
+    # ... your actual audit logic goes here ...
+    # When finished, optionally add unknowns:
+    # evidence.unknowns.append("Could not locate CPI guard for program X")
+    evidence.save()
+All the heavy lifting (static analysis, test execution) lives inside the skill; the router guarantees that the skill is only called after the policy gate and evidence‑pinning steps have succeeded.
+
+10. Test Suite – Full coverage of the new pipeline
+Test file	Focus	Example assertions
+tests/test_classifier.py	regex → intent/domain/language	assert classify("Audit token‑2022 program").intent == "security_audit"
+tests/test_rule_engine.py	matching priority & compound predicates	assert matches[0]["id"] == "AUDIT_TOKEN_2022"
+tests/test_policy_gate.py	each gate true/false paths	with pytest.raises(RuntimeError): enforce(workflow, {"no_secrets": True})
+tests/test_skill_loader.py	loads only declared skill, raises on missing gate	with pytest.raises(PolicyViolationError): load_skill("broken-skill")
+tests/test_curriculum_adapter.py	path resolution and status flags	assert resolve_paths(["/tmp/does_not_exist.md"])[0][1] == "MISSING"
+tests/test_evidence_tracker.py	JSON schema + reproducibility	ev = EvidenceLog(); ev.save(tmpdir); assert Path(tmpdir/"evidence.json").exists()
+tests/integration/test_full_flow.py	end‑to‑end dry‑run + full run (mocked skill)	Verify that after router_cli.py "Audit token‑2022" --dry-run the JSON includes the expected primary skill.
+Run everything with:
+
+python -m pytest -vv tests
+Add pytest-cov to the CI to keep ≥ 90 % line coverage on router and adaptor modules.
+
+11. CI / Automation Pipeline (GitHub Actions)
+# .github/workflows/ci.yml -----------------------------------------------
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install deps
+        run: pip install -r requirements.txt pytest pytest-cov pyyaml
+      - name: Generate lockfile (once per workflow)
+        run: python router/generate_lockfile.py
+      - name: Run tests with coverage
+        run: |
+          pytest -vv --cov=router --cov-report=xml
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: coverage.xml
+# -------------------------------------------------------------------------
+The lockfile is regenerated on every CI run, guaranteeing that any change to a repository commit is caught early.
+
+12. Migration Checklist – Move your existing starter into the new structure
+Step	Action	Done?
+1️⃣ Split setup.sh	Add setup_env.sh, setup_repo.sh, generate_lockfile.py, update dispatcher	✅
+2️⃣ Create lockfile	Run python router/generate_lockfile.py and commit solana_curriculum.lock	✅
+3️⃣ Add skill.yaml to every skill	Copy the schema, set mandatory_gates exactly as above	✅
+4️⃣ Replace static rules.json	Write router/rules.yaml using the DSL format	✅
+5️⃣ Swap router implementation	router_cli.py becomes the entry point; remove the old router.py	✅
+6️⃣ Add unit tests	Copy the test files listed in Section 10; ensure they pass	✅
+7️⃣ Wire CI	Add the GitHub Actions workflow from Section 11	✅
+8️⃣ Verify evidence	Run a real request (python router_cli.py "Audit …"), inspect evidence.json—it must contain pinned commit SHA and tree hash.	✅
+9️⃣ Documentation	Update README.md with the new CLI usage and the mandatory policy summary.	✅
+🔟 Future	Replace router/classifier.py with an LLM‑based classifier; add new skill modules as needed – the router will automatically enforce the same policy.	—
+After step 9 you have a fully deterministic, safe, and reproducible decision engine. Adding a new skill only requires:
+
+Drop a folder under solanabr/skills/ with skill.py + skill.yaml.
+(Optional) Add a rule referencing the new skill in rules.yaml.
+Run pytest – the existing test‑suite will confirm that the router still respects all gates.
+13. Example Usage – what you will see
+$ source ./setup.sh --env-only
+# (only env vars are added – no git activity)
+
+$ ./setup.sh          # full repo checkout (uses lockfile)
+# clones/updates repos, prints lock‑file status
+
+$ python router_cli.py "Audit this Anchor program for missing signer checks and CPI vulnerabilities"
+✅ Primary skill: auditor-skill
+🔧 Secondary skills loaded: solana-dev
+📚 Curriculum files: spl-tokens-2022-and-extensions, anchor-and-programs
+🗂 Evidence recorded in evidence.json
+🛡 All mandatory gates passed – you may now safely invoke the skill.
+
+$ cat evidence.json | jq .
+{
+  "run_id": "bfa92468‑d1c4‑4f31‑a8e4‑9f2b8d6c7a90",
+  "timestamp": 1728623175.123,
+  "request": "Audit this Anchor program for missing signer checks and CPI vulnerabilities",
+  "primary_skill": "auditor-skill",
+  "secondary_skills": ["solana-dev"],
+  "revisions": [
+    {
+      "repo": "https://github.com/coral-xyz/anchor.git",
+      "commit": "f2c0d12a3b...",
+      "tree_hash": "e1f2d3c4b5a6..."
+    },
+    {
+      "repo": "https://github.com/solana-labs/token-list.git",
+      "commit": "3f2a1e8c...",
+      "tree_hash": "a9b0c1d2e3f4..."
+    }
+  ],
+  "curriculum": [
+    {"path":"solana-curriculum/spl-tokens-2022-and-extensions","status":"VERIFIED"},
+    {"path":"solana-curriculum/anchor-and-programs","status":"VERIFIED"}
+  ],
+  "unknowns": []
+}
+Running with --json yields a single JSON blob containing the same data plus the full workflow description.
+
+14. What the next iteration could add (beyond the checklist)
+Feature	Why it matters	Rough effort
+LLM‑based classifier	Handles more natural language, fewer false‑negatives.	1 week (prompt design + wrapper)
+Dynamic skill discovery	Auto‑register any skill.yaml found under solanabr/skills.	2 days
+Plugin‑style evidence adapters	For binary artifacts (e.g., compiled BPF files) compute SHA‑256, store alongside source commit.	3 days
+Web UI / API	Allows non‑technical users to submit requests and view the evidence log.	2 weeks (FastAPI + React)
+Sandboxed executor	Run skill code in an isolated Docker container, block network, enforce resource limits.	1 week
+User‑approval UI	Before any transaction payload is displayed, ask for explicit yes/no with a clear summary.	2 days
+Versioned rule‑engine	Store a git tag for each rules.yaml change; the evidence log records which rule‑set version was used.	1 day
+All of these can be plug‑in to the core architecture without changing the router’s guarantee: deterministic routing + enforced policy.
+
+15. TL;DR – One‑Paragraph Summary
+Create a metadata‑driven skill registry (skill.yaml), replace the flat rules.json with a DSL (rules.yaml), split the environment/setup script into a safe source‑only part and a lock‑file‑driven repo updater, implement a deterministic classifier + rule engine, enforce the eight mandatory gates before any skill import, load only the primary and declared secondary skills, resolve curriculum files and lock‑file‑pinned repository revisions, and log everything in an immutable evidence.json. With this design the router never touches unrelated skill code, never signs or leaks secrets, and every decision is reproducible, auditable, and safe for autonomous execution.
+
+Feel free to copy/paste the snippets above into your repository; after running the migration checklist you will have a production‑grade Solana Skill Decision Engine ready for the next wave of autonomous agents. 🚀You can use these feature accounts as a map for finding earning opportunities in Solana, but each requires a different workflow. None of the feature accounts pays you SOL just for using it.
+For your situation, I would start with local security testing and open-source auditing rather than buying SOL to trade or paying to run a validator. Solana's official documentation confirms that staking rewards depend on stake, validator performance, and commission; operating a validator also incurs costs. 
+
+Solana
++1
+
+
+
+1. How to use each group — and how it could earn SOL
+
+A. Runtime and SBPF security
+SIMD-0459, 0178, 0189, 0377, 0321, 0431
+How to use them: inspect the corresponding Agave source changes, create small test programs, and test verifier/runtime behavior with malformed instructions and boundary values on a local validator.
+How you earn: if you discover a new, in-scope vulnerability with a reproducible impact, submit it to the relevant security program. Alternatively, publish useful auditing tools or offer code-audit services.
+My first choice for your reverse-engineering workflow.
+
+
+
+
+B. Cryptographic syscalls
+SIMD-0302, 0284, 0334, 0388, 0075, 0222
+How to use them: write test vectors for invalid curve points, endian conversions, input lengths, scalar boundaries, and cryptographic output correctness. Compare results against an independent implementation.
+How you earn: report a previously unknown correctness or security flaw that meets a bounty's impact and scope requirements. A performance improvement alone may not qualify for a bounty.
+Important: known fixes are research starting points, not new bounty findings.
+
+
+
+
+C. Fees, balances, rent, and account creation
+SIMD-0186, 0191, 0458, 0392, 0437-1, 0437-2, 0312, 0194
+How to use them: implement the documented fee and account-balance rules independently. Generate boundary cases for failed transactions, account reallocations, rent-exemption thresholds, and integer rounding.
+How you earn: submit a proven violation of transaction validity or accounting invariants, or turn the testing suite into an auditing tool.
+Avoid: assuming a rent adjustment or fee change lets you withdraw SOL that belongs to another account.
+
+
+
+
+D. Transaction throughput and compute limits
+SIMD-0525, 0385, 0406, 0286, 0256, 0207, 0306, 0332, 0458
+How to use them: benchmark transaction processing, compute-unit limits, instruction-account counts, and transaction scheduling on a local test network. Check whether the deployed implementation matches the specification.
+How you earn: discover a reportable availability, validation, or accounting flaw; or sell performance analysis and monitoring tools.
+Trading is a separate path: faster slots or larger block limits do not automatically create arbitrage profit. Trading requires a separate strategy, execution infrastructure, and risk controls.
+
+
+
+
+E. Stake, vote, and validator economics
+SIMD-0232, 0291, 0249, 0391, 0490, 0185, 0133, 0096
+How to use them: study commission calculation, delayed commission changes, vote credits, stake warmup/cooldown, and reward distribution. Build a simulator to compare validator performance and commission.
+How you earn: delegate SOL to a validator to receive staking rewards, or run a validator if you can justify its infrastructure costs. Building validator analytics is another option.
+Capital requirement: delegation requires SOL; validator operation requires infrastructure and sufficient economic resources.
+
+
+
+
+F. Core programs and state transitions
+SIMD-0266, 0444, 0196, 0140, 0128, 0162, 0166, 0215, 0220, 0223
+How to use them: inspect token operations, program migration, executable-account checks, dynamic stack frames, and account-hash changes. Build differential tests and state-transition invariants.
+How you earn: identify a new vulnerability in a covered core component or use the same techniques to audit third-party Solana programs under their published bounty rules.
+
+
+
+2. What about the other feature accounts?
+The remaining entries fit into a few additional groups. These are useful to understand, but I would not give all of them equal research time.
+Features in your list	How to investigate	Possible earning route
+SIMD-0357, 0337, 0313, chained block IDs and Merkle shreds	Test block/shred validation and state-transition consistency	Qualifying consensus or availability bug bounty
+SIMD-0387, 0180, 0138, 0079, timely vote credits	Test vote-account state, leader selection inputs, and commission timing	Protocol security research or validator tooling
+SIMD-0083, 0286, 0256, 0207, 0306, 0525	Benchmark locks, compute limits, and scheduling	Performance tooling; reportable availability bugs
+SIMD-0215, 0220, 0223	Check account-hash reproducibility and snapshot consistency	Qualifying state-integrity bug bounty
+SIMD-0153, 0159, 0182, 0170, 0183, 0084	Test failure handling, compute charges, rent behavior, and reserved compute	Runtime correctness and accounting research
+SIMD-0340, 0249, 0312, 0162, 0267	Verify chained block IDs, commission changes, prefunding, executable flags, and VM sysvars	Targeted regression tests and security reports
+SIMD-0232, 0291, 0096, 0194	Model commission collection, basis-point rounding, priority-fee distribution, and rent rules	Accounting audits and developer tools
+ZK ElGamal, secp256r1, BLS12-381	Validate cryptographic inputs, proofs, and syscall behavior	Cryptographic security research
+A listed feature might already be active, replaced, or superseded. Check the current implementation and supported validator release before using an old proposal as a test specification.
+3. A practical way to earn your first SOL
+Here is the workflow I would follow with your Windows development machine and local analysis tools.
+1
+
+Choose one narrow target
+Start with SIMD-0459 or the SBPF runtime. Read the specification, find the corresponding code changes in Agave, and record the exact version and commit.
+
+
+
+2
+
+Build a local regression harness
+Write tests for valid inputs, malformed inputs, boundary conditions, and error paths. Run them against a local validator or isolated unit-test target; do not experiment with unauthorized mainnet attacks.
+
+
+
+3
+
+Establish a genuine discrepancy
+Compare the result with the specification and an independent reference implementation. A crash alone is not proof of a security vulnerability.
+
+
+
+4
+
+Prove the impact and check eligibility
+Document the minimal reproducer, affected versions, expected versus actual behavior, and concrete security impact. Verify that the exact component and impact are covered by the bounty program before submitting.
+
+
+
+5
+
+Submit or commercialize the result
+Submit eligible vulnerabilities through the program's official reporting channel. If no bounty-worthy defect exists, improve the test harness into an auditing tool or use it to offer legitimate security services.
+
+
+
+4. Other ways to earn SOL from these topics
+
+
+
+
+
+
+
+
+
+Staking — for holders of SOL
+Delegate existing SOL to a carefully selected validator and earn protocol staking rewards. Rewards vary with network conditions, validator performance, and commission; this is not free income and does not guarantee a profit in fiat terms. 
+
+Solana
++1
+
+
+
+Official guide: Solana staking documentation
+
+
+
+
+
+
+
+
+
+
+
+
+Auditing Solana applications
+Use your runtime knowledge to audit token programs, DeFi contracts, account validation, and CPI handling. This can lead to bounties or paid work, depending on your findings and clients.
+
+
+
+
+
+
+
+
+
+
+
+
+Build a paid testing tool
+A reproducible runtime differential tester or feature-gate analysis dashboard could help other developers identify regressions. Revenue depends on whether teams find it useful enough to pay for.
+
+
+
+5. Let's choose the route that fits your budget
+How much SOL can you invest upfront?
+
+Zero — I want to start without buying SOL
+
+A small amount for testing and transaction fees
+
+I already have SOL available to stake or deploy
+
+
+Which earning route do you prefer?
+
+Find a security bug and earn a bounty
+
+Earn staking rewards
+
+Build an auditing tool or offer services
+
+Research trading and arbitrage
+
+
+How much time can you commit?
+
+A few hours per week
+
+Several hours per day
+
+Full-time research
+
+
+Which area are you most comfortable with?
+
+Reverse engineering and assembly
+
+Rust and Solana programs
+
+Cryptography and mathematics
+
+Validators, transactions, and on-chain data
+
+Build my earning plan
+My default recommendation is zero-capital, local Solana security research, starting with SBPF or syscall validation. It offers a concrete way to turn technical work into a possible bounty without risking your SOL on speculative trades.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+F. Core programs and state transitions
+SIMD-0266, 0444, 0196, 0140, 0128, 0162, 0166, 0215, 0220, 0223
+How to use them: inspect token operations, program migration, executable-account checks, dynamic stack frames, and account-hash changes. Build differential tests and state-transition invariants.
+How you earn: identify a new vulnerability in a covered core component or use the same techniques to audit third-party Solana programs under their published bounty rules.
+
+
+
+
+
+
+
+
+
+
+
+
+
+Solana core programs and state transitions: hands-on research plan
+This is a useful area to investigate because these features affect how Solana programs execute, how accounts change, and how validators maintain consistent state. The goal is to find a reproducible mismatch between expected and actual behavior that could qualify for a security bounty.
+The ten SIMD entries are not ten interchangeable vulnerabilities. They cover different subsystems, so investigate each using its corresponding implementation and tests.
+1. What each SIMD means for your research
+SIMD	Research target	What to test
+0266	Efficient Token program	Token instruction semantics, account validation, balances and authorities
+0444	Program-data checks during migration	Program ownership, migration eligibility and state preservation
+0196	Stake program migration to Core BPF	Equivalence of old and migrated stake instruction behavior
+0140	Config program migration to Core BPF	Configuration account ownership, authorization and state transitions
+0128	Address Lookup Table migration to Core BPF	Table validation, address resolution and account loading
+0162	Executable-account flag checks	Whether execution eligibility is enforced consistently
+0166	Dynamic stack frames	Stack-frame bounds, call depth and verifier/runtime consistency
+0215	Accounts Lattice Hash	Deterministic state hashing and validator consistency
+0220	Snapshots using Accounts Lattice Hash	Snapshot creation, restoration and hash verification
+0223	Accounts Delta Hash removal	State-hash transitions and compatibility with the replacement mechanism
+Treat this as a research map, not confirmation that any of these components currently contains a defect. First establish the relevant release, activation status, and exact source implementation.
+2. Set up the research environment on Windows
+Since you're working in C:\solana, use a separate directory for the Agave source so you don't disturb your existing Solana scripts.
+Open PowerShell:
+cd C:\solana
+
+git clone https://github.com/anza-xyz/agave.git agave-research
+cd agave-research
+
+git log -1 --oneline
+
+
+Use a current stable release or the exact release relevant to the feature you are investigating. The current branch is not necessarily the version that introduced a SIMD.
+Install or verify the basics:
+git --version
+rustc --version
+cargo --version
+
+
+Official source: Agave repository.
+3. Find the actual implementation and tests
+Use rg (ripgrep) to locate relevant code. If it isn't installed, install it through your preferred Windows package manager.
+rg -n -i "executable|dynamic stack|lattice hash" .
+rg -n -i "address lookup table|program data|stake program" .
+rg -n -i "token program|delta hash|snapshot" .
+
+
+Search for the exact SIMD number in the proposal repository too:
+git clone https://github.com/solana-foundation/solana-improvement-documents.git C:\solana\simd-research
+
+rg -n "SIMD-0266|SIMD-0444|SIMD-0162|SIMD-0166" C:\solana\simd-research
+
+
+The numbers are useful identifiers, but the implementation might use a feature name or a different module name. Follow references from the proposal to the actual code and tests.
+4. Build tests around state-transition invariants
+These are examples of properties to test locally, not claims that the corresponding code is vulnerable.
+Test A — Executable-account checks (SIMD-0162)
+Expected invariant: a program cannot execute merely because an account has a particular flag or account-data shape. The runtime must enforce all applicable execution and ownership requirements.
+Test valid program accounts, non-executable accounts, incorrect owners, malformed program data, and missing dependencies.
+
+
+Test B — Dynamic stack frames (SIMD-0166)
+Expected invariant: valid calls stay within configured stack and call-depth limits, while invalid calls fail safely and consistently.
+Test nested calls, boundary sizes, oversized requests, and cleanup after errors. Check both verifier behavior and runtime execution.
+
+
+Test C — Program migration (SIMD-0444, 0196, 0140, 0128)
+Expected invariant: migration preserves the intended state and authorization rules.
+Run the same valid and invalid operations before and after migration, then compare account data, owner, lamports, executable status, and returned errors.
+
+
+Test D — Account hashing (SIMD-0215, 0220, 0223)
+Expected invariant: equivalent account states produce the expected deterministic hash, and snapshot restoration preserves the required state.
+Compare hashes across independent runs, account ordering, snapshot round trips, and controlled state changes. Do not assume two different hash schemes must produce identical hash bytes.
+
+
+Test E — Token behavior (SIMD-0266)
+Expected invariant: token transfers preserve supply and enforce the required signer, authority, mint, and account constraints.
+Test successful transfers, insufficient balances, incorrect authorities, frozen accounts where applicable, and arithmetic boundaries.
+
+
+For each test, save:
+- The exact source commit and validator version.
+- The input state and instruction sequence.
+- Expected and actual results.
+- Logs, errors, and resulting account data.
+- Whether the difference is documented behavior, a regression, or a plausible security defect.
+5. Turn a confirmed finding into a possible SOL bounty
+A test failure alone does not qualify. You need to establish a meaningful security impact, verify that the target is in scope, and follow the reporting rules.
+For core-protocol research, start with the Agave repository and verify the current applicable security disclosure or bounty channel before submitting. For application-level auditing, Immunefi lets you inspect individual programs' scopes and rewards.
+My recommendation: start with SIMD-0162, because executable-account validation gives you a concrete set of invariants to map and test. Then move to SIMD-0166 and the migration group. Treat hash and snapshot research as a separate, more specialized track.
+One important limitation: I haven't checked out and executed the relevant Agave revisions here, so I can't claim any of these tests exposes a live vulnerability or is currently eligible for a payout. The next meaningful step is to inspect the exact source and existing regression tests before designing a new test case.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Pasted text(4).txtDocument
+
+
+Worked for a few seconds
+
+
+
+
+
+
+I found your uploaded Pasted text(4).txt. It contains a detailed specification for your Curriculum-Guided Solana Security, Reverse Engineering, and On-Chain Forensics Agent, including instructions to use the solana-curriculum repository as the research knowledge base.
+How would you like me to use it for the SIMD research?
+1. Investigate — map all ten SIMD features to relevant curriculum modules, source files, and existing tests.
+2. Build — create a runnable local test harness for the core-program state-transition research.
+3. Audit — develop a structured security research plan with hypotheses, invariants, evidence requirements, and bounty eligibility checks.
+4. Automate — adapt your agent prompt so it automatically researches these SIMD features and produces evidence-backed reports.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+İNSPECT EVERY RULE;CREATE A STRUCTURED DESİCİON ENGİNE THAT WHEN TO USE WHİCH SKİLL https://github.com/solanabr/skills https://github.com/bakaxbaka/solana-curriculum
+
+
+
+
+
+
+
+
+
+
+
+
+Worked for 20s
+
+
+
+
+
+Analyzed
+
+
+Analyzed
+
+
+
+Solana Skill Decision Engine
+The right architecture is one routing engine, multiple specialized skills, and a shared evidence policy — not loading every skill for every task.
+I inspected the current contents of solanabr/skills, its skill registry, the Solana Development skill, auditor-skill, and your solana-curriculum README and setup script. The registry provides both official and ecosystem skills; your curriculum provides learning paths and companion source repositories. They should be used for different purposes, with explicit rules connecting them. 
+
+GitHub
++2
+
+
+
+I've created a runnable starter implementation with configurable routing rules and tests:
+Download the Solana Skill Decision Engine
+It uses Python's standard library and passed all five included tests.
+1. The decision architecture
+1. Classify the request
+Intent · technical domain · target · requested output
+
+
+2. Apply mandatory gates
+Authorization · secret handling · transaction approval · untrusted data
+
+
+3. Select the primary skill
+The highest-priority matching rule determines the main workflow.
+
+
+4. Add only necessary secondary skills
+Testing · protocol-specific knowledge · language · client or runtime internals
+
+
+5. Retrieve curriculum and source evidence
+Relevant course files · pinned source revision · tests · specifications
+
+
+6. Validate and report
+Reproducible results · citations · confidence · unresolved questions
+
+
+Important distinction: a skill tells the agent how to perform a kind of task. A curriculum module provides learning material and prerequisites. A companion repository provides implementation evidence. The router must not treat these as interchangeable.
+2. The routing rules
+The starter engine uses these priorities and domain rules. Higher-priority matches determine the primary workflow; lower-priority matches add supporting knowledge.
+Task detected	Primary skill or route	Curriculum and source
+Security audit, vulnerability analysis, bug bounty	auditor-skill + solana-dev	Anchor, Rust, relevant program source and testing framework
+Ghidra, SBPF/eBPF, disassembly, runtime internals	Reverse-engineering workflow	Rust, Agave, Anchor and relevant implementation
+SIMD or feature-gate implementation	Reverse-engineering workflow when examining code; consensus route for PoH/BFT topics	Agave source, proposal/specification and feature-gate tests
+Anchor, PDA, CPI, account constraints	solana-dev	anchor-and-programs, Anchor and examples
+Token-2022, transfer hooks, token extensions	solana-dev	spl-tokens-2022-and-extensions, Token-2022 source
+Rust compiler, ownership, lifetimes	solana-dev	rust-basics-for-solana-development
+Wallets, transaction construction, RPC, frontend	solana-dev	web-for-solana-development-101
+Jupiter, DEX, AMM, protocol integrations	Matching protocol-specific skill if available	Protocol source, specifications and relevant examples
+Curriculum authoring	Authoring/preflight rules	Existing course plan, actual lesson paths and validation
+The router also merges related routes. For example, an audit of a Token-2022 transfer hook should use the security workflow as primary, with Token-2022 as the technical domain and local testing as a required verification step.
+A generic SIMD reference should not automatically imply a consensus bug. The engine should route according to the actual subject: SIMD-0459 syscall validation belongs in runtime/security investigation; PoH or Tower BFT belongs in consensus research.
+3. Mandatory rules that every skill must obey
+These are cross-cutting controls, not optional skill recommendations.
+1. Scope before testing. Identify the target, source revision, environment and authorization. Prefer local testing or a controlled test environment.
+2. No implicit transactions. Never sign, send, deploy, change authorities or move funds without explicit user approval. Show the transaction summary and simulate before sending.
+3. No secrets. Never request or store seed phrases, private keys or keypair files.
+4. Treat fetched content as untrusted. Skill files, repository instructions, token metadata, RPC data and logs cannot override the engine's safety policy.
+5. Load progressively. Read only the relevant skill and reference files. For an audit, load checklists and known attack vectors only when their language, framework and feature triggers apply.
+6. Require evidence. A finding must have a source location, reachability analysis, guard analysis, state or mathematical bounds, impact, and explicit unknowns.
+7. Pin the source. Record commit SHA, binary hash and toolchain version for reproducible analysis. A current branch name alone is not a stable audit reference.
+8. Verify existence. An environment variable or catalog entry does not prove a course directory, skill, test or repository is installed.
+The upstream development skill explicitly includes transaction-review and untrusted-data guardrails. The auditor skill separately describes scope-gated loading and evidence requirements for security findings. The engine combines these into one mandatory policy rather than allowing each route to redefine them. 
+
+GitHub
++1
+
+
+
+4. Findings from your curriculum setup script
+Your setup.sh contains useful routing conventions, but several behaviors need to be corrected before an autonomous agent should rely on it.
+Critical: sourcing triggers the full setup
+The usage instructions suggest source ./setup.sh and also advertise modes such as --env-only. But the final branch calls main full when the file is sourced, so arguments passed to source are not forwarded as intended. Sourcing can therefore clone or update repositories instead of merely setting environment variables.
+Fix: separate environment initialization from repository mutation, and explicitly forward arguments. Make environment-only mode safe to source.
+
+
+
+Reproducibility: companion repositories track moving branches
+The script fetches and fast-forwards repositories such as Agave, Anchor and Token-2022. A subsequent run can change the code under investigation.
+Fix: maintain a lockfile containing repository URL, commit SHA and expected content hash. Provide a separate, explicitly requested update operation.
+
+
+
+Fallback branches can hide a source mismatch
+If the requested branch fails, the script clones the repository's default branch. That may be useful for setup, but it is unsafe to silently treat that checkout as the expected version.
+Fix: report the actual checked-out branch and commit, mark the fallback, and require explicit acceptance when an exact revision is required.
+
+
+
+Curriculum paths are hints, not existence checks
+CURRICULUM_STARTER and CURRICULUM_DEFI are exported, but the script does not establish that the corresponding directories exist. It also labels defi-on-jupiter as a draft, which the router must preserve.
+Fix: resolve every selected path, verify the target file exists, and return MISSING, DRAFT or VERIFIED rather than assuming success.
+
+
+
+Good foundation: routing and preflight commands
+The explicit domain routes, curriculum_find, curriculum_open, curriculum_preflight, curriculum_cite and required_repos_status provide a useful interface for the decision engine.
+Improvement: have the router call these operations through a controlled adapter, and verify that each returned citation points to real content.
+
+
+
+These observations are based on the setup.sh content retrieved from your repository. They are source-review findings, not claims that the script has been executed in your environment.
+5. How to run the implementation
+Extract the ZIP and run these commands from its directory:
+python router.py "Audit this Anchor program for missing signer checks and CPI vulnerabilities"
+python router.py "Inspect Agave SIMD-0459 syscall parameter address restrictions" --json
+python router.py "Implement a Token-2022 transfer hook"
+python -m unittest discover -s tests -v
+
+
+The JSON output includes the selected route, matched rules, primary and secondary skills, curriculum paths, source repositories, workflow and safety gates.
+The included files are:
+- rules.json — editable routing policy and mandatory controls.
+- router.py — deterministic router.
+- tests/test_router.py — basic routing regression tests.
+- README.md — usage and policy documentation.
+Download the engine ZIP
+6. What the production version should add next
+The current implementation is a tested starter router, not yet a complete discovery engine for every skill in the Solana ecosystem.
+The next version should dynamically read the skill registry from solanabr/skills, check which skills are actually installed, parse each skill's description and metadata, and retrieve the relevant SKILL.md plus companion references. It should also map curriculum lessons and companion repositories to topics and prerequisites, instead of relying solely on keyword matches.
+The essential design rule is: the model may recommend a route, but deterministic gates must validate it. Every decision should record the matched rule, the reason for selection, the files actually loaded, the source revision and the evidence needed to finish the task.
