@@ -114,12 +114,17 @@ function resolveCallHierarchy(
   const hardDependencies = loadOrder.filter(
     (id) => id !== primary?.id && dependencyEdges.some((edge) => edge.skill !== id && edge.requires.includes(id)),
   );
+  // A declared secondary that is already required by another selected skill is a dependency,
+  // not an optional add-on. Do not display it twice in the call hierarchy.
+  const secondaryOnly = secondary
+    .map((skill) => skill.id)
+    .filter((id) => id !== primary?.id && !hardDependencies.includes(id));
   const missingCatalogSkills = loadOrder.filter((id) => !getSkill(id));
   return {
     primary: primary?.id ?? null,
     loadOrder,
     hardDependencies,
-    secondary: secondary.map((s) => s.id),
+    secondary: secondaryOnly,
     dependencyEdges,
     missingCatalogSkills,
     cycles: [...cycles],
@@ -174,6 +179,7 @@ function compileTaskPrompt(args: {
     solana_generalist: "Classify the technical layer, inspect only relevant references, and state assumptions and unknowns.",
   };
   const profile = profileFor(classification);
+  const secondaryOnly = secondary.filter((skill) => callHierarchy.secondary.includes(skill.id));
   const safeRequest = gates.some((gate) => gate.id === "no_secrets" && gate.state === "fail")
     ? "[REDACTED: possible secret material detected]"
     : request;
@@ -213,13 +219,13 @@ function compileTaskPrompt(args: {
     "Dependency-first load order: " + (callHierarchy.loadOrder.join(" -> ") || "none"),
     "Primary skill: " + (primary?.id ?? "unavailable"),
     "Hard dependencies: " + (callHierarchy.hardDependencies.join(", ") || "none"),
-    "Secondary skills: " + (secondary.map((s) => s.id).join(", ") || "none"),
+    "Secondary skills: " + (secondaryOnly.map((s) => s.id).join(", ") || "none"),
     "Missing catalog skills: " + (callHierarchy.missingCatalogSkills.join(", ") || "none"),
     "Dependency cycles: " + (callHierarchy.cycles.join(", ") || "none"),
     "",
     "## Skill purpose",
     ...(primary ? ["Primary: " + primary.id + " — " + primary.use + " (source: " + primary.repo + ")"] : ["No primary skill selected; stop before substantive work."]),
-    ...secondary.map((s) => "Secondary: " + s.id + " — " + s.use + " (source: " + s.repo + ")"),
+    ...secondaryOnly.map((s) => "Secondary: " + s.id + " — " + s.use + " (source: " + s.repo + ")"),
     "",
     "## Curriculum paths",
     ...(curriculum.length ? curriculum.map((c) => "- " + c.path + " — " + c.status + (c.note ? ": " + c.note : "")) : ["- None selected."]),
@@ -464,7 +470,7 @@ export function decide(request: string, context: DecisionContext = {}): Decision
     classification,
     matchedRuleIds: matched.map((rule) => rule.id),
     primary,
-    secondary,
+    secondary: secondary.filter((skill) => callHierarchy.secondary.includes(skill.id)),
     notLoaded: SKILLS.map((skill) => skill.id).filter((id) => !skillIds.has(id)),
     discarded,
     curriculum,
