@@ -317,6 +317,11 @@ export function decide(request: string, context: DecisionContext = {}): Decision
   const targetPinned =
     validCommit(target.commit) ||
     validHash(target.sha256) ||
+    sourceRevisions.some((revision) =>
+      Boolean(target.pathOrId) &&
+      revision.repo.replace(/\.git$/i, "").toLowerCase() === target.pathOrId!.replace(/\.git$/i, "").toLowerCase() &&
+      (validCommit(revision.commit) || validHash(revision.sha256)),
+    ) ||
     (inferredTargetKind === "transaction_signature" && Boolean(target.signature || context.realInputReference || subjectPresent(request))) ||
     (inferredTargetKind === "bytecode" && Boolean(target.sha256 || context.realInputReference));
   const evidenceBoundIntent = ["security_audit", "reverse_engineering", "runtime_research", "forensics", "testing"].includes(classification.intent);
@@ -374,7 +379,6 @@ export function decide(request: string, context: DecisionContext = {}): Decision
     hasSecrets: context.hasSecrets,
   });
 
-  const gateState = worst(gates);
   const gateState = worst(gates);
   const agentProfile = profileFor(classification);
   const safeRequest = gates.some((gate) => gate.id === "no_secrets" && gate.state === "fail")
