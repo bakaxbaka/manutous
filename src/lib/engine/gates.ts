@@ -46,6 +46,7 @@ export function evaluateGates(input: {
   transactionSummaryPresent?: boolean;
   simulationPassed?: boolean;
   mainnetConfirmed?: boolean;
+  hasSecrets?: boolean;
 }): GateResult[] {
   const {
     request,
@@ -59,7 +60,7 @@ export function evaluateGates(input: {
     intent,
   } = input;
 
-  const secret = SECRET.some((pattern) => pattern.test(request));
+  const secret = Boolean(input.hasSecrets) || SECRET.some((pattern) => pattern.test(request));
   const promptInjection = POLICY_OVERRIDE.some((pattern) => pattern.test(request));
   const network = (input.network ?? "unknown").toLowerCase();
   const externalAction = (input.externalAction ?? "none").toLowerCase();
@@ -72,9 +73,11 @@ export function evaluateGates(input: {
   const mutating = structuredMutation || directMutation;
   const isMainnet = network === "mainnet" || network === "mainnet-beta";
   const harmfulMainnetMutation =
-    isMainnet &&
     mutating &&
-    /\b(drain|steal|phish|credential extraction|unauthorized exploit)\b|\bdeploy.{0,40}exploit\b|\bexploit.{0,40}mainnet\b/i.test(request);
+    (
+      /^\s*(?:(?:please|now)\s+)*(?:drain|steal|phish|extract credentials)\b/i.test(request) ||
+      (isMainnet && /\b(drain|steal|phish|credential extraction|unauthorized exploit)\b|\bdeploy.{0,40}exploit\b|\bexploit.{0,40}mainnet\b/i.test(request))
+    );
   const mutationApproved =
     Boolean(input.explicitApproval) &&
     Boolean(input.transactionSummaryPresent) &&
