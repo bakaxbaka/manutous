@@ -129,6 +129,8 @@ function resolveCallHierarchy(
 function profileFor(classification: Classification): string {
   if (classification.intent === "security_audit") return "security_auditor";
   if (classification.intent === "forensics") return "forensics_analyst";
+  if (classification.intent === "testing") return "test_engineer";
+  if (classification.intent === "migration") return "migration_architect";
   if (classification.intent === "reverse_engineering") return "reverse_engineer";
   if (classification.intent === "runtime_research") return "runtime_researcher";
   if (classification.intent === "curriculum_authoring") return "curriculum_maintainer";
@@ -164,6 +166,7 @@ function compileTaskPrompt(args: {
     runtime_researcher: "Research Solana runtime/SIMD behavior. Pin the exact implementation and specification, confirm feature activation, compare expected with observed behavior and reproduce locally.",
     curriculum_maintainer: "Maintain the curriculum by inspecting the parent plan and neighboring modules, preserving learning objectives and validating real links and paths.",
     migration_architect: "Use two passes for EVM-to-Solana migration: a behavior-preserving port, then a Solana-native redesign with parity tests.",
+    test_engineer: "Design deterministic local tests around invariants, boundary conditions, malformed inputs and state transitions. Record exact commands/results and do not equate a failing test with a security finding.",
     client_engineer: "Implement client flows with explicit cluster, transaction version, payer, signer, wallet capability, simulation and confirmation behavior.",
     protocol_integrator: "Verify current protocol APIs and account/instruction semantics, model fees and slippage, and test locally or by simulation.",
     solana_builder: "Build Solana code with validated accounts and authorities, checked arithmetic and negative tests for invalid inputs.",
