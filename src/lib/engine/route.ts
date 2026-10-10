@@ -314,7 +314,7 @@ export function decide(request: string): Decision {
       ...new Set([
         ...(primaryRule?.curriculum ?? []).map((id) => CURRICULUM[id]?.path ?? `courses/${id}`),
         ...(primaryRule?.evidence ?? []).map((item) => item.repo),
-        ...(primaryRule?.evidenceRequirements ?? []),
+        ...(primaryRule?.reads ?? []),
       ]),
     ],
     verifiedResources: [],
