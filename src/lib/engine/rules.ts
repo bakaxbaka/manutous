@@ -130,6 +130,22 @@ export const RULES: Rule[] = [
     evidenceRequirements: ["course_plan_path", "neighbor_weeks", "preflight"],
   },
   {
+    id: "TESTING",
+    priority: 180,
+    intents: ["testing"],
+    primary: "solana-dev",
+    secondary: [],
+    extraSecondary: [
+      { domain: "fuzzing", skill: "property-based-testing" },
+      { domain: "token-2022", skill: "token-integration-analyzer" },
+      { domain: "spl-token", skill: "token-integration-analyzer" },
+    ],
+    curriculum: ["anchor-and-programs", "rust-basics-for-solana-development"],
+    evidence: [],
+    evidenceRequirements: ["pinned_target", "invariant_or_property", "test_command", "actual_output", "coverage_limits", "unknowns"],
+    note: "Build local deterministic regression/property tests. Load fuzzing support only when fuzz/property-based triggers justify it.",
+  },
+  {
     id: "TOKEN_WORK",
     priority: 160,
     domains: ["token-2022", "spl-token"],
