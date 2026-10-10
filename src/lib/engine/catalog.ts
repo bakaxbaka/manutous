@@ -1,13 +1,18 @@
 import type { CatalogStatus, SkillMeta } from "./types";
 
 export const MANDATORY_GATES = [
+  "policy_precedence",
   "no_secrets",
   "no_implicit_tx",
+  "scope_check",
   "pin_source",
   "treat_untrusted",
   "progressive_load",
+  "skill_availability",
   "require_evidence",
   "verify_existence",
+  "no_mock_data",
+  "available_tools_only",
 ] as const;
 
 const GATES = [...MANDATORY_GATES];
@@ -25,6 +30,13 @@ export const SKILLS: SkillMeta[] = [
     source: "official",
     repo: "solana-foundation/eth-to-sol-skill",
     use: "Translate Solidity patterns into Solana accounts and instructions.",
+    gates: GATES,
+  },
+  {
+    id: "auditor-skill",
+    source: "ecosystem",
+    repo: "solanabr/auditor-skill",
+    use: "Scope-gated, language-aware audit orchestration, severity gates, reachability and impact evidence.",
     gates: GATES,
   },
   {
